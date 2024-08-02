@@ -148,6 +148,7 @@
    pkgs.telegram-desktop
    pkgs.easyeffects
    pkgs.unzip
+   pkgs.spicetify-cli
 
 
 
