@@ -147,6 +147,7 @@
    pkgs.galaxy-buds-client
    pkgs.telegram-desktop
    pkgs.easyeffects
+   pkgs.unzip
 
 
 
