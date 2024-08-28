@@ -36,7 +36,22 @@
 
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+
+
+  # Enable input method support
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      fcitx5-hangul
+      fcitx5-gtk
+    ];
+  };
+
+  # Add Korean to your locale settings
+  i18n.supportedLocales = [
+    "en_US.UTF-8/UTF-8"
+    "ko_KR.UTF-8/UTF-8"
+  ];
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "ko_KR.UTF-8";
@@ -49,6 +64,20 @@
     LC_TELEPHONE = "ko_KR.UTF-8";
     LC_TIME = "ko_KR.UTF-8";
   };
+  
+  # Install some useful Korean fonts
+  fonts.fonts = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+  ];
+
+  # Optional: Set system-wide environment variables
+  environment.variables = {
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
+  };
+
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -75,11 +104,26 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
+  };
+
+hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Name = "Computer";
+        ControllerMode = "dual";
+        FastConnectable = "true";
+        Experimental = "true";
+      };
+      Policy = { AutoEnable = "true"; };
+      LE = { EnableAdvMonInterleaveScan = "true"; };
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -144,16 +188,12 @@
    gnome3.gnome-tweaks
    zsh
    oh-my-zsh
-   discord
    spotify
    git
-   android-studio   
-   nodenv
-   nodejs_20
+   android-studio
    bun
    protonvpn-gui
    galaxy-buds-client
-   telegram-desktop
    easyeffects
    unzip
    spicetify-cli
@@ -165,7 +205,9 @@
    github-desktop
    openssl
    android-tools   
-   xorg.xdm  
+   xorg.xdm
+   obsidian
+     
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -194,7 +236,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 
 
   ############################################################################################################
