@@ -66,7 +66,7 @@
   };
   
   # Install some useful Korean fonts
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk
   ];
@@ -179,6 +179,7 @@ hardware.bluetooth = {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+environment.gnome.excludePackages = [ pkgs.gnome.gnome-music ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -207,7 +208,14 @@ hardware.bluetooth = {
    android-tools   
    xorg.xdm
    obsidian
-     
+   qbittorrent
+   telegram-desktop
+   discord
+   rhythmbox
+   chromium
+   postman
+   python3
+   gcc-unwrapped
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -244,6 +252,7 @@ hardware.bluetooth = {
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
+    driSupport = true;
   };
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
