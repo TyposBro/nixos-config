@@ -6,20 +6,21 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
- 
+
   # Create a Swap
 
   swapDevices = [{
-      device = "/swapfile";
-      size = 16 * 1024; # 16GB
-   }];
+    device = "/swapfile";
+    size = 16 * 1024; # 16GB
+  }];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -64,7 +65,7 @@
     LC_TELEPHONE = "ko_KR.UTF-8";
     LC_TIME = "ko_KR.UTF-8";
   };
-  
+
   # Install some useful Korean fonts
   fonts.packages = with pkgs; [
     noto-fonts
@@ -111,7 +112,7 @@
     #media-session.enable = true;
   };
 
-hardware.bluetooth = {
+  hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
     settings = {
@@ -135,35 +136,35 @@ hardware.bluetooth = {
     description = "ched54";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
   #for global user
-  users.defaultUserShell=pkgs.zsh;
+  users.defaultUserShell = pkgs.zsh;
   # For a specific user
   users.users.ched54.shell = pkgs.zsh;
 
   # enable zsh and oh my zsh
   programs = {
-     zsh = {
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+      zsh-autoenv.enable = true;
+      syntaxHighlighting.enable = true;
+      ohMyZsh = {
         enable = true;
-        autosuggestions.enable = true;
-        zsh-autoenv.enable = true;
-        syntaxHighlighting.enable = true;
-        ohMyZsh = {
-           enable = true;
-           theme = "agnoster";
-           plugins = [
-             "git"
-             "npm"
-             "history"
-             "node"
-             "rust"
-             "deno"
-           ];
-        };
-     };
+        theme = "agnoster";
+        plugins = [
+          "git"
+          "npm"
+          "history"
+          "node"
+          "rust"
+          "deno"
+        ];
+      };
+    };
   };
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
@@ -173,49 +174,56 @@ hardware.bluetooth = {
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
+  # services.gnome3.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+
   # Install firefox.
   programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-environment.gnome.excludePackages = [ pkgs.gnome.gnome-music ];
+  environment.gnome.excludePackages = with pkgs; [
+    gnome.gnome-music
+  ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-   vim
-   wget
-   vscode
-   gnome3.gnome-tweaks
-   zsh
-   oh-my-zsh
-   spotify
-   git
-   android-studio
-   bun
-   protonvpn-gui
-   galaxy-buds-client
-   easyeffects
-   unzip
-   spicetify-cli
-   variety
-   xorg.xrandr
-   lshw
-   busybox  
-   openjdk11
-   github-desktop
-   openssl
-   android-tools   
-   xorg.xdm
-   obsidian
-   qbittorrent
-   telegram-desktop
-   discord
-   rhythmbox
-   chromium
-   postman
-   python3
-   gcc-unwrapped
+    vim
+    wget
+    vscode
+    gnome3.gnome-tweaks
+    zsh
+    oh-my-zsh
+    spotify
+    git
+    bun
+    protonvpn-gui
+    galaxy-buds-client
+    easyeffects
+    unzip
+    spicetify-cli
+    variety
+    xorg.xrandr
+    lshw
+    busybox
+    openjdk11
+    github-desktop
+    openssl
+    android-tools
+    xorg.xdm
+    obsidian
+    telegram-desktop
+    discord
+    nixpkgs-fmt
+    direnv
+    libreoffice-qt6-still
+    qbittorrent
+    rhythmbox
+    spicetify-cli
+    android-studio
+    # openjdk8
+    kdePackages.kget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -255,7 +263,7 @@ environment.gnome.excludePackages = [ pkgs.gnome.gnome-music ];
     driSupport = true;
   };
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
 
@@ -282,7 +290,7 @@ environment.gnome.excludePackages = [ pkgs.gnome.gnome-music ];
     open = false;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
@@ -291,10 +299,10 @@ environment.gnome.excludePackages = [ pkgs.gnome.gnome-music ];
 
   hardware.nvidia.prime = {
     sync.enable = true;
-		# Make sure to use the correct Bus ID values for your system!
-		intelBusId = "PCI:0:2:0";
-		nvidiaBusId = "PCI:1:0:0";
-                # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
-	};
+    # Make sure to use the correct Bus ID values for your system!
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+    # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
+  };
 
 }
