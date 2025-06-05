@@ -49,29 +49,7 @@ fi
 
 echo "-----"
 
-backupname=$(date "+%Y-%m-%d-%H-%M-%S")
-if [ -d "NixConf" ]; then
-  echo "NixConf exists, backing up to .config/NixConf-backups folder."
-  if [ -d ".config/NixConf-backups" ]; then
-    echo "Moving current version of NixConf to backups folder."
-    mv "$HOME"/NixConf .config/NixConf-backups/"$backupname"
-    sleep 1
-  else
-    echo "Creating the backups folder & moving NixConf to it."
-    mkdir -p .config/NixConf-backups
-    mv "$HOME"/NixConf .config/NixConf-backups/"$backupname"
-    sleep 1
-  fi
-else
-  echo "Thank you for choosing NixConf."
-  echo "I hope you find your time here enjoyable!"
-fi
 
-echo "-----"
-
-echo "Cloning & Entering NixConf Repository"
-git clone --single-branch https://github.com/TyposBro/nixos.git
-cd NixConf || exit
 mkdir hosts/"$hostName"
 cp hosts/default/*.nix hosts/"$hostName"
 installusername=$(echo $USER)
@@ -116,4 +94,4 @@ NIX_CONFIG="experimental-features = nix-command flakes"
 
 echo "-----"
 
-sudo nixos-rebuild switch --flake ~/NixConf/#${profile}
+sudo nixos-rebuild switch --flake ~/setup/#${profile}
