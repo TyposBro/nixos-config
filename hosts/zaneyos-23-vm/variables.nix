@@ -1,12 +1,15 @@
 {
   # Git Configuration ( For Pulling Software Repos )
-  gitUsername = "Don Williams";
-  gitEmail = "don.e.williams@gmail.com";
+  gitUsername = "Typosbro";
+  gitEmail = "typosbro@proton.me";
 
   # Hyprland Settings
-  extraMonitorSettings = "
-    monitor=Virtual-1,1920x1080@60,auto,1
-    ";
+  # ex: extraMonitorSettings = "monitor = Virtual-1,1920x1080@60,auto,1";
+  # ex: extraMonitorSettings = "monitor = HDMI-A-1,1920x1080@60,auto,1";
+  extraMonitorSettings = ''
+    monitor = HDMI-A-1,3840x2160@60,0x0,1.5
+    monitor = eDP-1,preffered,auto,1,mirror,HDMI-A-1
+  '';
 
   # Waybar Settings
   clock24h = false;
@@ -31,13 +34,12 @@
   stylixImage = ../../wallpapers/AnimeGirlNightSky.jpg;
 
   # Set Waybar
-  # # Available options are:
-  # waybar-simple.nix
-  # waybar-curved.nix
-  # waybar-ddubs.nix
-  # waybar-ddubs-2.nix
-  # Jerry-waybar.nix
-  waybarChoice = ../../modules/home/waybar/waybar-ddubs-2.nix;
+  #  Available Options:
+  #waybarChoice = ../../modules/home/waybar/waybar-simple.nix;
+  #waybarChoice = ../../modules/home/waybar/waybar-ddubs.nix;
+  #waybarChoice = ../../modules/home/waybar/waybar-ddubs-2.nix;
+  #waybarChoice = ../../modules/home/waybar/Jerry-waybar.nix;
+  waybarChoice = ../../modules/home/waybar/waybar-curved.nix;
 
   # Set Animation style
   # Available options are:
@@ -45,8 +47,8 @@
   # animations-end4.nix (end-4 project)
   # animations-dynamic.nix (ml4w project)
   # animations-moving.nix (ml4w project)
-  animChoice = ../../modules/home/hyprland/animations-moving.nix;
+  animChoice = ../../modules/home/hyprland/animations-def.nix;
 
   # Enable Thunar GUI File Manager
-  thunarEnable = true;
+  thunarEnable = false;
 }
