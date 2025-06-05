@@ -49,7 +49,29 @@ fi
 
 echo "-----"
 
+backupname=$(date "+%Y-%m-%d-%H-%M-%S")
+if [ -d "zaneyos" ]; then
+  echo "ZaneyOS exists, backing up to .config/zaneyos-backups folder."
+  if [ -d ".config/zaneyos-backups" ]; then
+    echo "Moving current version of ZaneyOS to backups folder."
+    mv "$HOME"/zaneyos .config/zaneyos-backups/"$backupname"
+    sleep 1
+  else
+    echo "Creating the backups folder & moving ZaneyOS to it."
+    mkdir -p .config/zaneyos-backups
+    mv "$HOME"/zaneyos .config/zaneyos-backups/"$backupname"
+    sleep 1
+  fi
+else
+  echo "Thank you for choosing ZaneyOS."
+  echo "I hope you find your time here enjoyable!"
+fi
 
+echo "-----"
+
+echo "Cloning & Entering ZaneyOS Repository"
+git clone -b stable-2.3 --single-branch clone https://github.com/typosbro/setup.git zaneyos
+cd zaneyos || exit
 mkdir hosts/"$hostName"
 cp hosts/default/*.nix hosts/"$hostName"
 installusername=$(echo $USER)
@@ -94,4 +116,4 @@ NIX_CONFIG="experimental-features = nix-command flakes"
 
 echo "-----"
 
-sudo nixos-rebuild switch --flake ~/setup/#${profile}
+sudo nixos-rebuild switch --flake ~/zaneyos/#${profile}
