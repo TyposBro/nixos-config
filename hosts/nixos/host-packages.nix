@@ -5,7 +5,6 @@
     nodejs
     obs-studio
     vscode
-    firefox
     chromium
     android-studio
     spotify

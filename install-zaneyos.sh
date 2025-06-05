@@ -37,41 +37,41 @@ echo "-----"
 
 read -rp "Enter Your Hardware Profile (GPU)
 Options:
-[ amd ]
+amd
 nvidia
-nvidia-laptop
+[ nvidia-laptop ]
 intel
 vm
 Please type out your choice: " profile
 if [ -z "$profile" ]; then
-  profile="amd"
+  profile="nvidia-laptop"
 fi
 
 echo "-----"
 
 backupname=$(date "+%Y-%m-%d-%H-%M-%S")
-if [ -d "zaneyos" ]; then
-  echo "ZaneyOS exists, backing up to .config/zaneyos-backups folder."
-  if [ -d ".config/zaneyos-backups" ]; then
-    echo "Moving current version of ZaneyOS to backups folder."
-    mv "$HOME"/zaneyos .config/zaneyos-backups/"$backupname"
+if [ -d "NixConf" ]; then
+  echo "NixConf exists, backing up to .config/NixConf-backups folder."
+  if [ -d ".config/NixConf-backups" ]; then
+    echo "Moving current version of NixConf to backups folder."
+    mv "$HOME"/NixConf .config/NixConf-backups/"$backupname"
     sleep 1
   else
-    echo "Creating the backups folder & moving ZaneyOS to it."
-    mkdir -p .config/zaneyos-backups
-    mv "$HOME"/zaneyos .config/zaneyos-backups/"$backupname"
+    echo "Creating the backups folder & moving NixConf to it."
+    mkdir -p .config/NixConf-backups
+    mv "$HOME"/NixConf .config/NixConf-backups/"$backupname"
     sleep 1
   fi
 else
-  echo "Thank you for choosing ZaneyOS."
+  echo "Thank you for choosing NixConf."
   echo "I hope you find your time here enjoyable!"
 fi
 
 echo "-----"
 
-echo "Cloning & Entering ZaneyOS Repository"
-git clone -b stable-2.3 --single-branch https://gitlab.com/zaney/zaneyos.git
-cd zaneyos || exit
+echo "Cloning & Entering NixConf Repository"
+git clone --single-branch https://github.com/TyposBro/nixos.git
+cd NixConf || exit
 mkdir hosts/"$hostName"
 cp hosts/default/*.nix hosts/"$hostName"
 installusername=$(echo $USER)
@@ -116,4 +116,4 @@ NIX_CONFIG="experimental-features = nix-command flakes"
 
 echo "-----"
 
-sudo nixos-rebuild switch --flake ~/zaneyos/#${profile}
+sudo nixos-rebuild switch --flake ~/NixConf/#${profile}
