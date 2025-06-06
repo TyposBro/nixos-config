@@ -30,6 +30,9 @@ in {
     ZANEYOS_VERSION = "2.3.1";
     ZANEYOS = "true";
   };
+  environment.sessionVariables = {
+    JBR_PLATFORM = "wayland";
+  };
   console.keyMap = "${consoleKeyMap}";
   system.stateVersion = "23.11"; # Do not change!
 }
