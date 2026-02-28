@@ -45,6 +45,10 @@
 
   # GPU acceleration
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+
+  # Steam (needs system-level 32-bit support and udev rules)
+  programs.steam.enable = true;
 
   # Audio via PipeWire
   services.pulseaudio.enable = false;

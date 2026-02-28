@@ -23,5 +23,10 @@
       user = "git";
       identityFile = "~/.ssh/id_ed25519";
     };
+    matchBlocks."gitlab.com" = {
+      hostname = "gitlab.com";
+      user = "git";
+      identityFile = "~/.ssh/id_ed25519";
+    };
   };
 }

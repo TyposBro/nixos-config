@@ -36,9 +36,11 @@
 
     # Communication
     telegram-desktop
+    discord
 
     # Media
     spotify
+    easyeffects
 
     # VPN & Networking
     protonvpn-gui
