@@ -161,6 +161,11 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
 
+        # Media
+        "$mod, M, exec, playerctl play-pause"
+        "$mod, bracketright, exec, playerctl next"
+        "$mod, bracketleft, exec, playerctl previous"
+
         # Wallpaper
         "$mod, W, exec, $HOME/.local/bin/wallpaper-rotate"
 
@@ -180,6 +185,10 @@
         "$mod CTRL, left, resizeactive, -30 0"
         "$mod CTRL, up, resizeactive, 0 -30"
         "$mod CTRL, down, resizeactive, 0 30"
+
+        # Volume
+        "$mod, equal, exec, pamixer -i 5"
+        "$mod, minus, exec, pamixer -d 5"
       ];
 
       bindl = [
