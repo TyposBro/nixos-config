@@ -120,6 +120,7 @@
   # User account
   users.users.typosbro = {
     isNormalUser = true;
+    initialPassword = "changeme";
     description = "typosbro";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
     shell = pkgs.fish;

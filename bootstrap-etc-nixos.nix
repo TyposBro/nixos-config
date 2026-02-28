@@ -51,6 +51,7 @@
 
   users.users.typosbro = {
     isNormalUser = true;
+    initialPassword = "changeme";
     description = "typosbro";
     extraGroups = [ "networkmanager" "wheel" ];
   };
