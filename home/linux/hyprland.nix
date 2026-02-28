@@ -103,6 +103,7 @@
       bind = [
         # Apps
         "$mod, Return, exec, ghostty"
+        "$mod SHIFT, Return, exec, zen"
         "$mod, E, exec, nautilus"
         "$mod, Space, exec, wofi --show drun"
         "$mod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"

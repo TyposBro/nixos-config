@@ -63,6 +63,7 @@ nru  # flake update + rebuild
 | Binding | Action |
 |---|---|
 | `ALT + Enter` | Terminal (Ghostty) |
+| `ALT + SHIFT + Enter` | Zen Browser |
 | `ALT + Space` | App launcher (Wofi) |
 | `ALT + Q` | Close window |
 | `ALT + F` | Fullscreen |
@@ -108,18 +109,20 @@ nr   # rebuild (alias)
 nru  # flake update + rebuild
 ```
 
-### Keybindings (Aerospace, ALT modifier — mirrors Hyprland)
+### Keybindings (Aerospace, CMD modifier — mirrors Hyprland)
 
 | Binding | Action |
 |---|---|
-| `ALT + Enter` | Terminal (Ghostty) |
-| `ALT + Q` | Close window |
-| `ALT + F` | Fullscreen |
-| `ALT + T` | Toggle float/tile |
-| `ALT + H/J/K/L` | Focus left/down/up/right |
-| `ALT + 1–9` | Switch workspace |
-| `ALT + SHIFT + 1–9` | Move window to workspace |
-| `ALT + CTRL + arrows` | Resize window |
+| `CMD + Enter` | Terminal (Ghostty) |
+| `CMD + SHIFT + Enter` | Zen Browser |
+| `CMD + Q` | Close window |
+| `CMD + F` | Fullscreen |
+| `CMD + T` | Toggle float/tile |
+| `CMD + H/J/K/L` | Focus left/down/up/right |
+| `CMD + Arrows` | Focus left/down/up/right |
+| `CMD + 1–9` | Switch workspace |
+| `CMD + SHIFT + 1–9` | Move window to workspace |
+| `CMD + CTRL + arrows` | Resize window |
 
 ## Mirrors
 

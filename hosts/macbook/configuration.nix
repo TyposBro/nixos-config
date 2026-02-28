@@ -59,6 +59,7 @@
       mode.main.binding = {
         # Apps
         "cmd-enter" = "exec-and-forget ghostty";
+        "cmd-shift-enter" = "exec-and-forget open -a 'Zen Browser'";
 
         # Window management
         "cmd-q"           = "close";
