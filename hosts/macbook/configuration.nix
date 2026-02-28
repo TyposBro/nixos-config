@@ -1,8 +1,9 @@
 { pkgs, ... }:
 
 {
-  # Nix settings
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Nix settings — Determinate Systems installer manages the Nix daemon,
+  # so we disable nix-darwin's Nix management.
+  nix.enable = false;
   nixpkgs.config.allowUnfree = true;
 
   # Required for user-specific options (dock, finder, aerospace, etc.)
@@ -58,7 +59,6 @@
         "alt-q"           = "close";
         "alt-f"           = "fullscreen";
         "alt-t"           = "layout floating tiling";
-        "alt-shift-m"     = "exit"; # no Hyprland compositor to exit, just placeholder
 
         # Focus — arrow keys
         "alt-left"  = "focus left";
