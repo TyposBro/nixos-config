@@ -37,6 +37,7 @@
     # Communication
     telegram-desktop
     discord
+    bitwarden-desktop
 
     # Media
     spotify
