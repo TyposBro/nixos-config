@@ -22,8 +22,9 @@
     }
   '';
 
-  # Ghostty: remap Ctrl+Arrow to line/document navigation on macOS
+  # Ghostty macOS overrides
   xdg.configFile."ghostty/config".text = lib.mkAfter ''
+    macos-titlebar-style = tabs
     keybind = ctrl+left=text:\x01
     keybind = ctrl+right=text:\x05
   '';

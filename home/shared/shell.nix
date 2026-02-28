@@ -33,7 +33,7 @@
   xdg.configFile."ghostty/config".text = ''
     font-family = JetBrainsMono Nerd Font
     font-size = 17
-    theme = catppuccin-mocha
+    theme = Catppuccin Mocha
     background-opacity = 0.9
     cursor-style = bar
     shell-integration = fish

@@ -16,6 +16,7 @@
     cursor-style = bar
     shell-integration = fish
     window-decoration = false
+    gtk-tabs-location = bottom
     gtk-single-instance = true
   '';
 
