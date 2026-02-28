@@ -118,8 +118,11 @@ nru  # flake update + rebuild
 | `CMD + Q` | Close window |
 | `CMD + F` | Fullscreen |
 | `CMD + SHIFT + T` | Toggle float/tile |
+| `CMD + /` | Toggle split direction |
 | `CMD + H/J/K/L` | Focus left/down/up/right |
 | `CMD + Arrows` | Focus left/down/up/right |
+| `CMD + SHIFT + H/J/K/L` | Move window |
+| `CMD + SHIFT + Arrows` | Move window |
 | `CMD + 1–9` | Switch workspace |
 | `CMD + SHIFT + 1–9` | Move window to workspace |
 | `CMD + CTRL + arrows` | Resize window |
