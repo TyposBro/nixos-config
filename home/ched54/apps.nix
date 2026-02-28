@@ -1,6 +1,34 @@
 { pkgs, ... }:
 
 {
+  # Fish shell — aliases & fnm init
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      fnm env --use-on-cd --shell fish | source
+    '';
+    shellAliases = {
+      # System
+      ll  = "ls -la";
+      la  = "ls -la";
+
+      # Git
+      gs  = "git status";
+      ga  = "git add";
+      gc  = "git commit";
+      gca = "git commit --amend";
+      gp  = "git push";
+      gpl = "git pull";
+      gd  = "git diff";
+      gl  = "git log --oneline --graph --decorate";
+
+      # NixOS rebuild shortcuts
+      nr  = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
+      nru = "cd ~/nixos-config && nix flake update && sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
+      ncd = "cd ~/nixos-config";
+    };
+  };
+
   # Mako — notification daemon
   services.mako = {
     enable = true;
@@ -12,19 +40,19 @@
       border-radius = 8;
       border-size = 2;
       default-timeout = 5000;
-      font = "JetBrainsMono Nerd Font 12";
-      width = 360;
-      padding = "12";
+      font = "JetBrainsMono Nerd Font 16";
+      width = 380;
+      padding = "14";
       margin = "10";
       icons = 1;
       max-icon-size = 48;
     };
   };
 
-  # Wofi — app launcher
+  # Wofi — app launcher (1.33x font sizes)
   xdg.configFile."wofi/config".text = ''
-    width=600
-    height=400
+    width=640
+    height=420
     location=center
     show=drun
     prompt=  Search...
@@ -35,7 +63,7 @@
     orientation=vertical
     insensitive=true
     allow_images=true
-    image_size=32
+    image_size=36
     gtk_dark=true
   '';
 
@@ -51,49 +79,37 @@
       color: #cdd6f4;
       border: none;
       border-radius: 8px;
-      padding: 10px 14px;
+      padding: 12px 16px;
       margin: 10px;
       font-family: "JetBrainsMono Nerd Font";
-      font-size: 14px;
+      font-size: 17px;
     }
 
-    #inner-box {
-      background-color: transparent;
-    }
-
-    #outer-box {
-      padding: 4px;
-    }
+    #inner-box { background-color: transparent; }
+    #outer-box { padding: 4px; }
 
     #entry {
       background-color: transparent;
-      padding: 8px 10px;
+      padding: 10px 12px;
       border-radius: 8px;
     }
 
-    #entry:selected {
-      background-color: #313244;
-    }
-
-    #entry:selected #text {
-      color: #cba6f7;
-    }
+    #entry:selected { background-color: #313244; }
+    #entry:selected #text { color: #cba6f7; }
 
     #text {
       color: #cdd6f4;
       font-family: "JetBrainsMono Nerd Font";
-      font-size: 13px;
+      font-size: 17px;
     }
 
-    #img {
-      margin-right: 8px;
-    }
+    #img { margin-right: 10px; }
   '';
 
-  # Ghostty terminal config
+  # Ghostty terminal (1.33x → 17px)
   xdg.configFile."ghostty/config".text = ''
     font-family = JetBrainsMono Nerd Font
-    font-size = 13
+    font-size = 17
     theme = catppuccin-mocha
     background-opacity = 0.9
     cursor-style = bar
@@ -102,7 +118,7 @@
     gtk-single-instance = true
   '';
 
-  # GTK dark theme
+  # GTK dark theme (1.33x → 15pt)
   gtk = {
     enable = true;
     theme = {
@@ -115,7 +131,7 @@
     };
     font = {
       name = "Noto Sans";
-      size = 11;
+      size = 15;
     };
     gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
@@ -124,6 +140,18 @@
   # Force dark mode system-wide
   dconf.settings."org/gnome/desktop/interface" = {
     color-scheme = "prefer-dark";
+  };
+
+  # Set Zen Browser as the default browser
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html"             = "zen-browser.desktop";
+      "x-scheme-handler/http" = "zen-browser.desktop";
+      "x-scheme-handler/https" = "zen-browser.desktop";
+      "x-scheme-handler/about" = "zen-browser.desktop";
+      "x-scheme-handler/ftp"  = "zen-browser.desktop";
+    };
   };
 
   # XDG user dirs

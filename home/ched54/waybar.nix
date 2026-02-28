@@ -7,7 +7,7 @@
     settings = [{
       layer = "top";
       position = "top";
-      height = 36;
+      height = 44;
       margin-top = 6;
       margin-left = 12;
       margin-right = 12;
@@ -81,7 +81,7 @@
     style = ''
       * {
         font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
-        font-size: 13px;
+        font-size: 17px;
         border: none;
         border-radius: 0;
         min-height: 0;

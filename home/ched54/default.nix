@@ -5,6 +5,8 @@
     ./hyprland.nix
     ./waybar.nix
     ./apps.nix
+    ./git.nix
+    ./vscode.nix
   ];
 
   home.username = "ched54";
@@ -14,8 +16,7 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    # Editors & IDEs
-    vscode
+    # Editors & IDEs (vscode managed by programs.vscode in vscode.nix)
     claude-code          # from overlay — always latest
 
     # Browsers

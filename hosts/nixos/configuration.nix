@@ -88,19 +88,11 @@
   # SSH key agent
   programs.ssh.startAgent = true;
 
-  # Fish shell with fnm
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
-      fnm env --use-on-cd --shell fish | source
-    '';
-  };
+  # Fish shell (user config & aliases managed by home-manager)
+  programs.fish.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # Firefox
-  programs.firefox.enable = true;
 
   # Core system packages only — user apps are managed by home-manager
   environment.systemPackages = with pkgs; [
