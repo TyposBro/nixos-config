@@ -3,8 +3,8 @@
 {
   # macOS-specific fish aliases
   programs.fish.shellAliases = {
-    nr  = "darwin-rebuild switch --flake ~/nixos-config#macbook";
-    nru = "cd ~/nixos-config && nix flake update && darwin-rebuild switch --flake ~/nixos-config#macbook";
+    nr  = "sudo darwin-rebuild switch --flake ~/nixos-config#macbook";
+    nru = "cd ~/nixos-config && nix flake update && sudo darwin-rebuild switch --flake ~/nixos-config#macbook";
   };
 
   # Remap Ctrl+Arrow to do what CMD+Arrow used to do (line/document navigation)

@@ -5,6 +5,8 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
+      # Ensure nix-darwin and home-manager paths are available
+      fish_add_path --prepend /run/current-system/sw/bin ~/.nix-profile/bin
       fnm env --use-on-cd --shell fish | source
     '';
     shellAliases = {

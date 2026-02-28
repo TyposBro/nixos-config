@@ -65,6 +65,7 @@
         "cmd-q"           = "close";
         "cmd-f"           = "fullscreen";
         "cmd-shift-t"     = "layout floating tiling";
+        "cmd-slash"       = "layout tiles horizontal vertical";  # toggle split direction
 
         # Focus — arrow keys
         "cmd-left"  = "focus left";
