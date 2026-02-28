@@ -94,7 +94,7 @@
         disable_hyprland_logo = true;
       };
 
-      "$mod" = "SUPER";
+      "$mod" = "ALT";
 
       bind = [
         # Apps
