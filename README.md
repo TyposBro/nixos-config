@@ -38,7 +38,7 @@ hosts/
 ```bash
 # 1. Clone the repo
 nix --extra-experimental-features "nix-command flakes" \
-  run nixpkgs#git -- clone git@github.com:TyposBro/nixos-config.git ~/nixos-config
+  run nixpkgs#git -- clone https://github.com/TyposBro/nixos-config.git ~/nixos-config
 
 # 2. Regenerate hardware config for this machine
 sudo nixos-generate-config --show-hardware-config \
@@ -84,7 +84,7 @@ nru  # flake update + rebuild
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
 # 2. Clone the repo
-git clone git@github.com:TyposBro/nixos-config.git ~/nixos-config
+git clone https://github.com/TyposBro/nixos-config.git ~/nixos-config
 
 # 3. Apply
 cd ~/nixos-config
