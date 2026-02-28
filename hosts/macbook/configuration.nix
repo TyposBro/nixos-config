@@ -129,6 +129,7 @@
   environment.systemPackages = with pkgs; [
     git
     gh
+    glab
     vim
     curl
     wget

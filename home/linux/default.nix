@@ -48,5 +48,8 @@
     # Files & system
     nautilus
     polkit_gnome
+
+    # Android
+    pkgs-unstable.android-studio
   ];
 }

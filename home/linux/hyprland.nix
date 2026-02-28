@@ -1,7 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  home.file."Pictures/wallpaper.png".source = ./assets/wallpaper.png;
+  home.file."Pictures/wallpapers" = {
+    source = ./assets/wallpapers;
+    recursive = true;
+  };
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -17,6 +20,7 @@
         "nm-applet --indicator"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+        "bash -c 'while true; do sleep 1800; $HOME/.local/bin/wallpaper-rotate; done'"
       ];
 
       env = [
@@ -157,6 +161,9 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
 
+        # Wallpaper
+        "$mod, W, exec, $HOME/.local/bin/wallpaper-rotate"
+
         # Screenshots
         ", Print, exec, grimblast copy area"
         "$mod, Print, exec, grimblast copy screen"
@@ -200,10 +207,35 @@
     };
   };
 
+  # Wallpaper rotation script
+  home.file.".local/bin/wallpaper-rotate" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      WALLPAPER_DIR="$HOME/Pictures/wallpapers"
+      CURRENT_FILE="$HOME/.cache/current-wallpaper"
+
+      wallpapers=("$WALLPAPER_DIR"/*)
+      [[ ''${#wallpapers[@]} -eq 0 ]] && exit 1
+
+      current=$(cat "$CURRENT_FILE" 2>/dev/null || echo "")
+      # Pick a random wallpaper different from current
+      next="$current"
+      while [[ "$next" == "$current" && ''${#wallpapers[@]} -gt 1 ]]; do
+        next="''${wallpapers[RANDOM % ''${#wallpapers[@]}]}"
+      done
+
+      echo "$next" > "$CURRENT_FILE"
+      hyprctl hyprpaper preload "$next"
+      hyprctl hyprpaper wallpaper ",$next"
+      hyprctl hyprpaper unload "$current" 2>/dev/null
+    '';
+  };
+
   xdg.configFile."hypr/hyprpaper.conf".text =
-    let wp = "${config.home.homeDirectory}/Pictures/wallpaper.png"; in ''
-      preload = ${wp}
-      wallpaper = ,${wp}
+    let wpDir = "${config.home.homeDirectory}/Pictures/wallpapers"; in ''
+      preload = ${wpDir}/Rainnight.jpg
+      wallpaper = ,${wpDir}/Rainnight.jpg
       splash = false
       ipc = on
     '';

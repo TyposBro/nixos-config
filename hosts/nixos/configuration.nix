@@ -125,7 +125,7 @@
     isNormalUser = true;
     initialPassword = "5454";
     description = "typosbro";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "adbusers" ];
     shell = pkgs.fish;
   };
 
@@ -135,6 +135,9 @@
   # Fish shell (user config & aliases managed by home-manager)
   programs.fish.enable = true;
 
+  # Android (ADB + fastboot with udev rules)
+  programs.adb.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -142,6 +145,7 @@
   environment.systemPackages = with pkgs; [
     git
     gh
+    glab
     vim
     curl
     wget
