@@ -10,9 +10,12 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Latest Claude Code (always up-to-date, ahead of nixpkgs)
+    claude-code-nix.url = "github:sadjow/claude-code-nix";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, zen-browser }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, zen-browser, claude-code-nix }:
     let
       system = "x86_64-linux";
       pkgs-unstable = import nixpkgs-unstable {
@@ -25,6 +28,9 @@
         modules = [
           ./hosts/nixos/configuration.nix
           {
+            # Apply claude-code overlay so pkgs.claude-code uses the flake version
+            nixpkgs.overlays = [ claude-code-nix.overlays.default ];
+
             environment.systemPackages = [
               zen-browser.packages.${system}.default
               pkgs-unstable.antigravity

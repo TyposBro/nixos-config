@@ -86,8 +86,7 @@
     # AI
     claude-code
 
-    # Terminal emulators
-    kitty
+    # Terminal emulator
     ghostty
 
     # Browsers (zen-browser is added via flake in flake.nix)
