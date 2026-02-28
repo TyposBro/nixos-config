@@ -1,6 +1,11 @@
 { lib, ... }:
 
 {
+  # Ensure nix-darwin and home-manager paths are available on macOS
+  programs.fish.interactiveShellInit = lib.mkBefore ''
+    fish_add_path --prepend /run/current-system/sw/bin ~/.nix-profile/bin
+  '';
+
   # macOS-specific fish aliases
   programs.fish.shellAliases = {
     nr  = "sudo darwin-rebuild switch --flake ~/nixos-config#macbook";
