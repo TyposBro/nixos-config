@@ -1,10 +1,9 @@
-{ config, hyprland, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.file."Pictures/wallpaper.png".source = ./assets/wallpaper.png;
   wayland.windowManager.hyprland = {
     enable = true;
-    package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
 
     settings = {
       monitor = ",preferred,auto,1";

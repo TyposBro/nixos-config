@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, zen-browser, hyprland, ... }:
+{ pkgs, pkgs-unstable, zen-browser, ... }:
 
 {
   imports = [

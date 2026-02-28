@@ -10,8 +10,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,7 +18,7 @@
     claude-code-nix.url = "github:sadjow/claude-code-nix";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, hyprland, zen-browser, claude-code-nix }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, zen-browser, claude-code-nix }:
     let
       system = "x86_64-linux";
       pkgs-unstable = import nixpkgs-unstable {
@@ -30,7 +28,6 @@
     in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit hyprland; };
         modules = [
           ./hosts/nixos/configuration.nix
           home-manager.nixosModules.home-manager
@@ -40,7 +37,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit hyprland pkgs-unstable zen-browser; };
+              extraSpecialArgs = { inherit pkgs-unstable zen-browser; };
               users.ched54 = import ./home/ched54;
             };
           }

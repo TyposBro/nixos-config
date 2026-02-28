@@ -1,4 +1,4 @@
-{ config, pkgs, hyprland, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -40,12 +40,8 @@
     wayland.enable = true;
   };
 
-  # Hyprland window manager
-  programs.hyprland = {
-    enable = true;
-    package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
+  # Hyprland window manager (uses nixpkgs binary — no compilation needed)
+  programs.hyprland.enable = true;
 
   # GPU acceleration
   hardware.graphics.enable = true;
