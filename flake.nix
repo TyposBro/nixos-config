@@ -48,7 +48,7 @@
                 pkgs-unstable = mkUnstable "x86_64-linux";
                 inherit zen-browser;
               };
-              users.ched54 = import ./home/linux;
+              users.typosbro = import ./home/linux;
             };
           }
         ];
@@ -70,7 +70,7 @@
               extraSpecialArgs = {
                 pkgs-unstable = mkUnstable "aarch64-darwin";
               };
-              users.ched54 = import ./home/darwin;
+              users.typosbro = import ./home/darwin;
             };
           }
         ];

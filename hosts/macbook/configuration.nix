@@ -127,8 +127,8 @@
   ];
 
   # Primary user — update username/home if different on your Mac
-  users.users.ched54 = {
-    home = "/Users/ched54";
+  users.users.typosbro = {
+    home = "/Users/typosbro";
     shell = pkgs.fish;
   };
 

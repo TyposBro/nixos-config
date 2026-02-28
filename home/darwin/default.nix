@@ -9,8 +9,8 @@
     ./apps.nix
   ];
 
-  home.username = "ched54";
-  home.homeDirectory = "/Users/ched54";
+  home.username = "typosbro";
+  home.homeDirectory = "/Users/typosbro";
   home.stateVersion = "25.05";
 
   programs.home-manager.enable = true;

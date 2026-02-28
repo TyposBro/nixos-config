@@ -118,9 +118,9 @@
   ];
 
   # User account
-  users.users.ched54 = {
+  users.users.typosbro = {
     isNormalUser = true;
-    description = "ched54";
+    description = "typosbro";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
     shell = pkgs.fish;
   };

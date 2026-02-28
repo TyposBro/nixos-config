@@ -91,7 +91,7 @@ nix run nix-darwin -- switch --flake .#macbook
 ```
 
 > If on an Intel Mac, change `system = "aarch64-darwin"` to `"x86_64-darwin"` in `flake.nix` first.
-> If your macOS username differs from `ched54`, update `users.users` in `hosts/macbook/configuration.nix`.
+> If your macOS username differs from `typosbro`, update `users.users` in `hosts/macbook/configuration.nix`.
 
 ### Rebuild / update
 

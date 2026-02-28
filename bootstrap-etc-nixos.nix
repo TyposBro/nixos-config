@@ -49,9 +49,9 @@
     pulse.enable = true;
   };
 
-  users.users.ched54 = {
+  users.users.typosbro = {
     isNormalUser = true;
-    description = "ched54";
+    description = "typosbro";
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
