@@ -1,6 +1,21 @@
-{ pkgs, hyprland, ... }:
+{ pkgs, config, hyprland, ... }:
+
+let
+  # Procedurally generated wallpaper — Catppuccin Mocha diagonal gradient
+  # Fully self-contained, no external files needed
+  wallpaper = pkgs.runCommand "wallpaper.png" {
+    nativeBuildInputs = [ pkgs.imagemagick ];
+  } ''
+    convert -size 2560x1440 \
+      \( -size 2560x1440 -define gradient:angle=135 gradient:"#1e1e2e"-"#313244" \) \
+      \( -size 2560x1440 -define gradient:angle=45  gradient:"#cba6f720"-"#89b4fa20" \) \
+      -compose Over -composite \
+      $out
+  '';
+in
 
 {
+  home.file."Pictures/wallpaper.png".source = wallpaper;
   wayland.windowManager.hyprland = {
     enable = true;
     package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
@@ -195,11 +210,13 @@
     };
   };
 
-  # Hyprpaper — set a solid color until you add a wallpaper
-  xdg.configFile."hypr/hyprpaper.conf".text = ''
-    splash = false
-    ipc = on
-  '';
+  xdg.configFile."hypr/hyprpaper.conf".text =
+    let wp = "${config.home.homeDirectory}/Pictures/wallpaper.png"; in ''
+      preload = ${wp}
+      wallpaper = ,${wp}
+      splash = false
+      ipc = on
+    '';
 
   # Hyprlock
   xdg.configFile."hypr/hyprlock.conf".text = ''
