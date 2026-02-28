@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+in
 {
   programs.vscode = {
     enable = true;
@@ -62,5 +65,18 @@
       "git.autofetch" = true;
       "gitlens.mode.active" = "zen";
     };
+
+    # Remap Ctrl+Arrow to line/document navigation on macOS
+    # (CMD+Arrow is used by AeroSpace)
+    profiles.default.keybindings = lib.optionals isDarwin [
+      { key = "ctrl+left";        command = "cursorHome"; }
+      { key = "ctrl+right";       command = "cursorEnd"; }
+      { key = "ctrl+up";          command = "cursorTop"; }
+      { key = "ctrl+down";        command = "cursorBottom"; }
+      { key = "ctrl+shift+left";  command = "cursorHomeSelect"; }
+      { key = "ctrl+shift+right"; command = "cursorEndSelect"; }
+      { key = "ctrl+shift+up";    command = "cursorTopSelect"; }
+      { key = "ctrl+shift+down";  command = "cursorBottomSelect"; }
+    ];
   };
 }

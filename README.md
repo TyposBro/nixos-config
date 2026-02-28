@@ -124,6 +124,16 @@ nru  # flake update + rebuild
 | `CMD + SHIFT + 1–9` | Move window to workspace |
 | `CMD + CTRL + arrows` | Resize window |
 
+### Text editing remaps (macOS only)
+
+Since `CMD + Arrow` is used by AeroSpace, text navigation is remapped to `CTRL + Arrow` across native apps, VS Code, and Ghostty:
+
+| Binding | Action |
+|---|---|
+| `CTRL + Left/Right` | Beginning/end of line |
+| `CTRL + Up/Down` | Beginning/end of document |
+| `CTRL + SHIFT + Arrow` | Same with selection |
+
 ## Mirrors
 
 | Host | URL |
