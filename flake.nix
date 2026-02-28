@@ -12,19 +12,25 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, zen-browser }: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, nixpkgs-unstable, zen-browser }:
+    let
       system = "x86_64-linux";
-      modules = [
-        ./hosts/nixos/configuration.nix
-        ({ pkgs, ... }: {
-          # Packages from unstable channel
-          environment.systemPackages = [
-            zen-browser.packages.x86_64-linux.default
-            nixpkgs-unstable.legacyPackages.x86_64-linux.antigravity
-          ];
-        })
-      ];
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    in {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/nixos/configuration.nix
+          {
+            environment.systemPackages = [
+              zen-browser.packages.${system}.default
+              pkgs-unstable.antigravity
+            ];
+          }
+        ];
+      };
     };
-  };
 }
