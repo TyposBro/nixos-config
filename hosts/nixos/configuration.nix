@@ -81,7 +81,7 @@
     # Editors & IDEs
     vim
     vscode
-    android-studio
+    # android-studio  # install separately: nix profile install nixpkgs#android-studio
 
     # AI
     claude-code
