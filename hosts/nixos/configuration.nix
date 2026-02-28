@@ -115,6 +115,20 @@
     fnm
   ];
 
+  # Remove GNOME's default terminal, ghostty is used instead
+  environment.gnome.excludePackages = [ pkgs.gnome-terminal ];
+
+  # Set ghostty as the default GNOME terminal
+  programs.dconf = {
+    enable = true;
+    profiles.user.databases = [{
+      settings."org/gnome/desktop/default-applications/terminal" = {
+        exec = "ghostty";
+        exec-arg = "-e";
+      };
+    }];
+  };
+
   # Firefox
   programs.firefox.enable = true;
 
