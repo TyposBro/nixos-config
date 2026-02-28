@@ -37,6 +37,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
+              backupFileExtension = "backup";
               extraSpecialArgs = { inherit pkgs-unstable zen-browser; };
               users.ched54 = import ./home/ched54;
             };
