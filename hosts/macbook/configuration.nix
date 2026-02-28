@@ -5,13 +5,15 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
+  # Required for user-specific options (dock, finder, aerospace, etc.)
+  system.primaryUser = "typosbro";
+
   # macOS system defaults (tiling-WM-friendly)
   system.defaults = {
     dock.autohide = true;
     dock.show-recents = false;
     dock.minimize-to-application = true;
     finder.AppleShowAllExtensions = true;
-    finder.ShowPathBar = true;
     finder.FXPreferredViewStyle = "Nlsv"; # list view
     NSGlobalDomain.AppleInterfaceStyle = "Dark";
     NSGlobalDomain.AppleShowAllFiles = true;
@@ -32,7 +34,7 @@
   services.aerospace = {
     enable = true;
     settings = {
-      start-at-login = true;
+      # start-at-login managed by launchd, not aerospace itself
       default-root-container-layout = "tiles";
       default-root-container-orientation = "auto";
       accordion-padding = 30;

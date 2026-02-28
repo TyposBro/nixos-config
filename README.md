@@ -19,16 +19,16 @@ hosts/
 | Category | Linux | macOS |
 |---|---|---|
 | WM | Hyprland + Waybar + Wofi + Mako | Aerospace |
-| Terminal | Ghostty | Ghostty |
+| Terminal | Ghostty | Ghostty (Homebrew) |
 | Browser | Zen Browser | — (install manually) |
 | Editors | VS Code + Vim | VS Code + Vim |
 | AI | `claude-code`, `antigravity` | `claude-code`, `antigravity` |
 | Dev | `git`, `gh`, `postman`, `fnm` | `git`, `gh`, `postman`, `fnm` |
 | Notes | Obsidian | Obsidian |
-| Communication | Telegram, Discord, Bitwarden | Telegram, Discord, Bitwarden |
-| Media | Spotify, EasyEffects | Spotify |
+| Communication | Telegram, Discord, Bitwarden | Telegram, Discord, Bitwarden (Homebrew) |
+| Media | Spotify, EasyEffects | Spotify (Homebrew) |
 | VPN | ProtonVPN | — |
-| Torrents | qBittorrent | qBittorrent |
+| Torrents | qBittorrent | qBittorrent (Homebrew) |
 | Utils | `btop`, `jq`, `unzip` | `btop`, `jq`, `unzip` |
 
 ## Linux (NixOS)
@@ -92,6 +92,14 @@ nix run nix-darwin -- switch --flake .#macbook
 
 > If on an Intel Mac, change `system = "aarch64-darwin"` to `"x86_64-darwin"` in `flake.nix` first.
 > If your macOS username differs from `typosbro`, update `users.users` in `hosts/macbook/configuration.nix`.
+
+### macOS GUI apps (Homebrew)
+
+Some GUI apps are broken/unavailable in nixpkgs on macOS and are installed via Homebrew casks instead:
+
+```bash
+brew install --cask ghostty discord spotify telegram bitwarden qbittorrent
+```
 
 ### Rebuild / update
 
