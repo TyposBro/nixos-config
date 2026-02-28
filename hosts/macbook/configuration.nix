@@ -31,7 +31,7 @@
   ];
 
   # Aerospace tiling window manager
-  # Mirrors Hyprland keybindings: ALT as modifier, workspaces 1-10, vim keys
+  # Mirrors Hyprland keybindings: CMD as modifier, workspaces 1-10, vim keys
   services.aerospace = {
     enable = true;
     settings = {
@@ -41,76 +41,81 @@
       accordion-padding = 30;
 
       gaps = {
-        inner.horizontal = 10;
-        inner.vertical = 10;
-        outer.top = 10;
-        outer.bottom = 10;
-        outer.left = 10;
-        outer.right = 10;
+        inner.horizontal = 0;
+        inner.vertical = 0;
+        outer.top = 0;
+        outer.bottom = 0;
+        outer.left = 0;
+        outer.right = 0;
       };
 
       key-mapping.preset = "qwerty";
 
+      # Float macOS utility apps that shouldn't tile
+      on-window-detected = [
+        { "if".app-id = "com.apple.finder"; run = "layout floating"; }
+      ];
+
       mode.main.binding = {
         # Apps
-        "alt-enter" = "exec-and-forget ghostty";
+        "cmd-enter" = "exec-and-forget ghostty";
 
         # Window management
-        "alt-q"           = "close";
-        "alt-f"           = "fullscreen";
-        "alt-t"           = "layout floating tiling";
+        "cmd-q"           = "close";
+        "cmd-f"           = "fullscreen";
+        "cmd-t"           = "layout floating tiling";
 
         # Focus — arrow keys
-        "alt-left"  = "focus left";
-        "alt-right" = "focus right";
-        "alt-up"    = "focus up";
-        "alt-down"  = "focus down";
+        "cmd-left"  = "focus left";
+        "cmd-right" = "focus right";
+        "cmd-up"    = "focus up";
+        "cmd-down"  = "focus down";
 
         # Focus — vim keys
-        "alt-h" = "focus left";
-        "alt-j" = "focus down";
-        "alt-k" = "focus up";
-        "alt-l" = "focus right";
+        "cmd-h" = "focus left";
+        "cmd-j" = "focus down";
+        "cmd-k" = "focus up";
+        "cmd-l" = "focus right";
 
         # Move windows
-        "alt-shift-left"  = "move left";
-        "alt-shift-right" = "move right";
-        "alt-shift-up"    = "move up";
-        "alt-shift-down"  = "move down";
-        "alt-shift-h"     = "move left";
-        "alt-shift-j"     = "move down";
-        "alt-shift-k"     = "move up";
-        "alt-shift-l"     = "move right";
+        "cmd-shift-left"  = "move left";
+        "cmd-shift-right" = "move right";
+        "cmd-shift-up"    = "move up";
+        "cmd-shift-down"  = "move down";
+        "cmd-shift-h"     = "move left";
+        "cmd-shift-j"     = "move down";
+        "cmd-shift-k"     = "move up";
+        "cmd-shift-l"     = "move right";
 
         # Resize
-        "alt-ctrl-right" = "resize width +30";
-        "alt-ctrl-left"  = "resize width -30";
-        "alt-ctrl-up"    = "resize height -30";
-        "alt-ctrl-down"  = "resize height +30";
+        "cmd-ctrl-right" = "resize width +30";
+        "cmd-ctrl-left"  = "resize width -30";
+        "cmd-ctrl-up"    = "resize height -30";
+        "cmd-ctrl-down"  = "resize height +30";
 
         # Workspaces
-        "alt-1" = "workspace 1";
-        "alt-2" = "workspace 2";
-        "alt-3" = "workspace 3";
-        "alt-4" = "workspace 4";
-        "alt-5" = "workspace 5";
-        "alt-6" = "workspace 6";
-        "alt-7" = "workspace 7";
-        "alt-8" = "workspace 8";
-        "alt-9" = "workspace 9";
-        "alt-0" = "workspace 10";
+        "cmd-1" = "workspace 1";
+        "cmd-2" = "workspace 2";
+        "cmd-3" = "workspace 3";
+        "cmd-4" = "workspace 4";
+        "cmd-5" = "workspace 5";
+        "cmd-6" = "workspace 6";
+        "cmd-7" = "workspace 7";
+        "cmd-8" = "workspace 8";
+        "cmd-9" = "workspace 9";
+        "cmd-0" = "workspace 10";
 
         # Move window to workspace
-        "alt-shift-1" = "move-node-to-workspace 1";
-        "alt-shift-2" = "move-node-to-workspace 2";
-        "alt-shift-3" = "move-node-to-workspace 3";
-        "alt-shift-4" = "move-node-to-workspace 4";
-        "alt-shift-5" = "move-node-to-workspace 5";
-        "alt-shift-6" = "move-node-to-workspace 6";
-        "alt-shift-7" = "move-node-to-workspace 7";
-        "alt-shift-8" = "move-node-to-workspace 8";
-        "alt-shift-9" = "move-node-to-workspace 9";
-        "alt-shift-0" = "move-node-to-workspace 10";
+        "cmd-shift-1" = "move-node-to-workspace 1";
+        "cmd-shift-2" = "move-node-to-workspace 2";
+        "cmd-shift-3" = "move-node-to-workspace 3";
+        "cmd-shift-4" = "move-node-to-workspace 4";
+        "cmd-shift-5" = "move-node-to-workspace 5";
+        "cmd-shift-6" = "move-node-to-workspace 6";
+        "cmd-shift-7" = "move-node-to-workspace 7";
+        "cmd-shift-8" = "move-node-to-workspace 8";
+        "cmd-shift-9" = "move-node-to-workspace 9";
+        "cmd-shift-0" = "move-node-to-workspace 10";
       };
     };
   };
