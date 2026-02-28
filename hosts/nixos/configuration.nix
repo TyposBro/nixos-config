@@ -109,6 +109,9 @@
   # Allow hyprlock to authenticate via PAM
   security.pam.services.hyprlock = {};
 
+  # Enable sudo for wheel group
+  security.sudo.enable = true;
+
   # Fonts
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -120,7 +123,7 @@
   # User account
   users.users.typosbro = {
     isNormalUser = true;
-    initialPassword = "changeme";
+    initialPassword = "5454";
     description = "typosbro";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
     shell = pkgs.fish;
