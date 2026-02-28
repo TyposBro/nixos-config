@@ -54,10 +54,20 @@
     isNormalUser = true;
     description = "ched54";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.fish;
   };
 
   # SSH key agent (used by git/GitHub)
   programs.ssh.startAgent = true;
+
+  # Fish shell
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      # fnm — Node version manager (auto-switches on cd with .nvmrc support)
+      fnm env --use-on-cd --shell fish | source
+    '';
+  };
 
   # Allow unfree packages (VS Code, etc.)
   nixpkgs.config.allowUnfree = true;
@@ -102,6 +112,9 @@
 
     # API development
     postman
+
+    # Node version manager
+    fnm
   ];
 
   # Firefox
