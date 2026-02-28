@@ -5,7 +5,7 @@
     enable = true;
     package = pkgs.vscode;
 
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       # Theme
       catppuccin.catppuccin-vsc
       catppuccin.catppuccin-vsc-icons
@@ -28,7 +28,7 @@
       bbenoist.nix
     ];
 
-    userSettings = {
+    profiles.default.userSettings = {
       # Theme
       "workbench.colorTheme" = "Catppuccin Mocha";
       "workbench.iconTheme" = "catppuccin-mocha";
