@@ -64,7 +64,7 @@
         # Window management
         "cmd-q"           = "close";
         "cmd-f"           = "fullscreen";
-        "cmd-t"           = "layout floating tiling";
+        "cmd-shift-t"     = "layout floating tiling";
 
         # Focus — arrow keys
         "cmd-left"  = "focus left";

@@ -99,7 +99,7 @@ nix run nix-darwin -- switch --flake .#macbook
 Some GUI apps are broken/unavailable in nixpkgs on macOS and are installed via Homebrew casks instead:
 
 ```bash
-brew install --cask ghostty discord spotify telegram bitwarden qbittorrent
+brew install --cask ghostty discord spotify telegram bitwarden qbittorrent android-studio zen-browser
 ```
 
 ### Rebuild / update
@@ -117,7 +117,7 @@ nru  # flake update + rebuild
 | `CMD + SHIFT + Enter` | Zen Browser |
 | `CMD + Q` | Close window |
 | `CMD + F` | Fullscreen |
-| `CMD + T` | Toggle float/tile |
+| `CMD + SHIFT + T` | Toggle float/tile |
 | `CMD + H/J/K/L` | Focus left/down/up/right |
 | `CMD + Arrows` | Focus left/down/up/right |
 | `CMD + 1–9` | Switch workspace |
