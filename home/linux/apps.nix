@@ -1,33 +1,23 @@
 { pkgs, ... }:
 
 {
-  # Fish shell — aliases & fnm init
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
-      fnm env --use-on-cd --shell fish | source
-    '';
-    shellAliases = {
-      # System
-      ll  = "ls -la";
-      la  = "ls -la";
-
-      # Git
-      gs  = "git status";
-      ga  = "git add";
-      gc  = "git commit";
-      gca = "git commit --amend";
-      gp  = "git push";
-      gpl = "git pull";
-      gd  = "git diff";
-      gl  = "git log --oneline --graph --decorate";
-
-      # NixOS rebuild shortcuts
-      nr  = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
-      nru = "cd ~/nixos-config && nix flake update && sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
-      ncd = "cd ~/nixos-config";
-    };
+  # Linux-specific fish aliases
+  programs.fish.shellAliases = {
+    nr  = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
+    nru = "cd ~/nixos-config && nix flake update && sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
   };
+
+  # Ghostty Linux-specific options (appended to shared config)
+  xdg.configFile."ghostty/config".text = ''
+    font-family = JetBrainsMono Nerd Font
+    font-size = 17
+    theme = catppuccin-mocha
+    background-opacity = 0.9
+    cursor-style = bar
+    shell-integration = fish
+    window-decoration = false
+    gtk-single-instance = true
+  '';
 
   # Mako — notification daemon
   services.mako = {
@@ -49,7 +39,7 @@
     };
   };
 
-  # Wofi — app launcher (1.33x font sizes)
+  # Wofi — app launcher
   xdg.configFile."wofi/config".text = ''
     width=640
     height=420
@@ -106,19 +96,7 @@
     #img { margin-right: 10px; }
   '';
 
-  # Ghostty terminal (1.33x → 17px)
-  xdg.configFile."ghostty/config".text = ''
-    font-family = JetBrainsMono Nerd Font
-    font-size = 17
-    theme = catppuccin-mocha
-    background-opacity = 0.9
-    cursor-style = bar
-    shell-integration = fish
-    window-decoration = false
-    gtk-single-instance = true
-  '';
-
-  # GTK dark theme (1.33x → 15pt)
+  # GTK dark theme
   gtk = {
     enable = true;
     theme = {
@@ -146,11 +124,11 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/html"             = "zen-browser.desktop";
-      "x-scheme-handler/http" = "zen-browser.desktop";
+      "text/html"              = "zen-browser.desktop";
+      "x-scheme-handler/http"  = "zen-browser.desktop";
       "x-scheme-handler/https" = "zen-browser.desktop";
       "x-scheme-handler/about" = "zen-browser.desktop";
-      "x-scheme-handler/ftp"  = "zen-browser.desktop";
+      "x-scheme-handler/ftp"   = "zen-browser.desktop";
     };
   };
 

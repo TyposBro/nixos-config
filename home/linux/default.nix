@@ -2,11 +2,13 @@
 
 {
   imports = [
+    ../shared/git.nix
+    ../shared/vscode.nix
+    ../shared/shell.nix
+    ../shared/packages.nix
     ./hyprland.nix
     ./waybar.nix
     ./apps.nix
-    ./git.nix
-    ./vscode.nix
   ];
 
   home.username = "ched54";
@@ -16,39 +18,21 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    # Editors & IDEs (vscode managed by programs.vscode in vscode.nix)
-    claude-code          # from overlay — always latest
-
-    # Browsers
+    # Browser (Linux-focused flake)
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # AI
     pkgs-unstable.antigravity
 
-    # Terminal
-    ghostty
-
-    # Dev tools
-    postman
-
-    # Notes
-    obsidian
-
-    # Communication
-    telegram-desktop
-    discord
-    bitwarden-desktop
-
-    # Media
-    spotify
-    easyeffects
-
     # VPN & Networking
     protonvpn-gui
     networkmanagerapplet
 
-    # Torrents
-    qbittorrent
+    # Audio
+    easyeffects
+    pamixer
+    pavucontrol
+    playerctl
 
     # Hyprland ecosystem
     hyprpaper
@@ -57,9 +41,6 @@
     grimblast
     cliphist
     wl-clipboard
-    pamixer
-    pavucontrol
-    playerctl
     brightnessctl
     wofi
     mako
@@ -67,10 +48,5 @@
     # Files & system
     nautilus
     polkit_gnome
-    btop
-
-    # Utils
-    unzip
-    jq
   ];
 }
