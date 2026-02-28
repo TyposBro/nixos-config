@@ -85,7 +85,6 @@
 
     # AI
     claude-code
-    antigravity   # Google Antigravity — agentic IDE
 
     # Terminal emulators
     kitty
