@@ -47,8 +47,44 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
+  # NVIDIA proprietary driver
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;         # Required for Wayland
+    powerManagement.enable = true;     # Better suspend/resume
+    open = false;                      # Proprietary (more stable than open module)
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  # PRIME Sync — NVIDIA always active (RTX 4060 Max-Q), Intel handles display
+  hardware.nvidia.prime = {
+    sync.enable = true;
+    intelBusId  = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
+
+  # Kernel parameters for NVIDIA + Wayland
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+  ];
+
+  # NVIDIA environment variables (Wayland/VA-API/GLX)
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME          = "nvidia";
+    __GLX_VENDOR_LIBRARY_NAME  = "nvidia";
+    NVD_BACKEND                = "direct";
+  };
+
   # Steam (needs system-level 32-bit support and udev rules)
   programs.steam.enable = true;
+
+  # 16 GB swap file
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size   = 16 * 1024; # MiB
+  }];
 
   # Audio via PipeWire
   services.pulseaudio.enable = false;
