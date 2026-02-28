@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, hyprland, ... }:
 
 {
   imports = [
@@ -27,17 +27,28 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Desktop environment (GNOME)
+  # Keep Xorg enabled for XWayland compatibility
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  # Printing
-  services.printing.enable = true;
+  # Display manager — SDDM with Wayland
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
+
+  # Hyprland window manager
+  programs.hyprland = {
+    enable = true;
+    package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+
+  # GPU acceleration
+  hardware.graphics.enable = true;
 
   # Audio via PipeWire
   services.pulseaudio.enable = false;
@@ -49,90 +60,63 @@
     pulse.enable = true;
   };
 
+  # Printing
+  services.printing.enable = true;
+
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+  # Secrets / keyring (used by many apps)
+  services.gnome.gnome-keyring.enable = true;
+
+  # Allow hyprlock to authenticate via PAM
+  security.pam.services.hyprlock = {};
+
+  # Fonts
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-emoji
+    font-awesome
+  ];
+
   # User account
   users.users.ched54 = {
     isNormalUser = true;
     description = "ched54";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
     shell = pkgs.fish;
   };
 
-  # SSH key agent (used by git/GitHub)
+  # SSH key agent
   programs.ssh.startAgent = true;
 
-  # Fish shell
+  # Fish shell with fnm
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      # fnm — Node version manager (auto-switches on cd with .nvmrc support)
       fnm env --use-on-cd --shell fish | source
     '';
   };
 
-  # Allow unfree packages (VS Code, etc.)
+  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # System packages
-  environment.systemPackages = with pkgs; [
-    # Version control & GitHub
-    git
-    gh
-
-    # Editors & IDEs
-    vim
-    vscode
-    # android-studio  # install separately: nix profile install nixpkgs#android-studio
-
-    # AI
-    claude-code
-
-    # Terminal emulator
-    ghostty
-
-    # Browsers (zen-browser is added via flake in flake.nix)
-
-    # Notes
-    obsidian
-
-    # Communication
-    telegram-desktop
-
-    # Media
-    spotify
-
-    # Networking & VPN
-    curl
-    wget
-    protonvpn-gui
-
-    # Torrents
-    qbittorrent
-
-    # API development
-    postman
-
-    # Node version manager
-    fnm
-  ];
-
-  # Remove GNOME's default terminal, ghostty is used instead
-  environment.gnome.excludePackages = [ pkgs.gnome-terminal ];
-
-  # Set ghostty as the default GNOME terminal
-  programs.dconf = {
-    enable = true;
-    profiles.user.databases = [{
-      settings."org/gnome/desktop/default-applications/terminal" = {
-        exec = "ghostty";
-        exec-arg = "-e";
-      };
-    }];
-  };
 
   # Firefox
   programs.firefox.enable = true;
 
-  # Enable nix flakes and new CLI
+  # Core system packages only — user apps are managed by home-manager
+  environment.systemPackages = with pkgs; [
+    git
+    gh
+    vim
+    curl
+    wget
+    fnm
+  ];
+
+  # Enable nix flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   system.stateVersion = "25.05";
