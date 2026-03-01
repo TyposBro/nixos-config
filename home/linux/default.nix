@@ -6,6 +6,7 @@
     ../shared/vscode.nix
     ../shared/shell.nix
     ../shared/packages.nix
+    ../shared/neovim.nix
     ./hyprland.nix
     ./waybar.nix
     ./apps.nix
