@@ -157,13 +157,8 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
 
-        # Media (physical Super/Option key — keyd sends ALT)
-        "ALT, M, exec, playerctl play-pause"
-        "ALT, bracketright, exec, playerctl next"
-        "ALT, bracketleft, exec, playerctl previous"
-
-        # Wallpaper (physical Super/Option + W)
-        "ALT, W, exec, $HOME/.local/bin/wallpaper-rotate"
+        # Wallpaper
+        "$mod, W, exec, $HOME/.local/bin/wallpaper-rotate"
 
         # Screenshots
         ", Print, exec, grimblast copy area"
@@ -177,14 +172,11 @@
       ];
 
       binde = [
+        # Resize
         "$mod ALT, right, resizeactive, 30 0"
         "$mod ALT, left, resizeactive, -30 0"
         "$mod ALT, up, resizeactive, 0 -30"
         "$mod ALT, down, resizeactive, 0 30"
-
-        # Volume
-        "ALT, equal, exec, pamixer -i 5"
-        "ALT, minus, exec, pamixer -d 5"
       ];
 
       bindl = [
@@ -210,6 +202,7 @@
         "center, class:pavucontrol"
       ];
     };
+
   };
 
   # Wallpaper rotation script

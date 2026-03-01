@@ -1,8 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
-let
-  isLinux = pkgs.stdenv.isLinux;
-in
 {
   programs.vscode = {
     enable = true;
@@ -66,10 +63,5 @@ in
       "gitlens.mode.active" = "zen";
     };
 
-    # On Linux, keyd remaps physical CTRL to Super, so bind Super+`
-    # to toggle terminal (matches physical CTRL+` like macOS)
-    profiles.default.keybindings = lib.optionals isLinux [
-      { key = "meta+`"; command = "workbench.action.terminal.toggleTerminal"; }
-    ];
   };
 }
