@@ -200,7 +200,7 @@
         up = C-home
         down = C-end
         backspace = C-backspace
-        grave = C-grave
+        space = M-space
         slash = C-slash
         equal = C-equal
         minus = C-minus
