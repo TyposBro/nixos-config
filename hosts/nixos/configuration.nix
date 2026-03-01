@@ -138,17 +138,21 @@
   # Android (ADB + fastboot with udev rules)
   programs.adb.enable = true;
 
-  # Key remapping — swap Super and CTRL so physical Super acts like macOS CMD
-  # (sends CTRL to apps for copy/paste/save etc.) and physical CTRL acts
-  # as the WM modifier (sends Super to Hyprland).
+  # Key remapping — match macOS keyboard layout: CTRL | Option | CMD
+  # PC layout is CTRL | Super | ALT, so we remap to:
+  #   Physical ALT (CMD position) → cmd layer (app shortcuts like copy/paste)
+  #   Physical Super (Option position) → ALT (acts like Option)
+  #   Physical CTRL → Super (WM modifier for Hyprland)
   services.keyd = {
     enable = true;
     keyboards.default = {
       ids = [ "*" ];
       settings = {
         main = {
-          leftmeta = "layer(cmd)";
-          rightmeta = "layer(cmd)";
+          leftalt = "layer(cmd)";
+          rightalt = "layer(cmd)";
+          leftmeta = "leftalt";
+          rightmeta = "rightalt";
           leftcontrol = "leftmeta";
           rightcontrol = "rightmeta";
         };

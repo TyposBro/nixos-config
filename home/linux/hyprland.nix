@@ -157,12 +157,12 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
 
-        # Media (ALT modifier — keeps ALT/Option free from WM conflicts)
+        # Media (physical Super/Option key — keyd sends ALT)
         "ALT, M, exec, playerctl play-pause"
         "ALT, bracketright, exec, playerctl next"
         "ALT, bracketleft, exec, playerctl previous"
 
-        # Wallpaper
+        # Wallpaper (physical Super/Option + W)
         "ALT, W, exec, $HOME/.local/bin/wallpaper-rotate"
 
         # Screenshots
