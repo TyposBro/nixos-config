@@ -10,6 +10,7 @@ in
 
     # Dev tools
     postman
+    wrangler
 
     # Notes
     obsidian
