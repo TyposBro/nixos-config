@@ -9,7 +9,7 @@
     enable = true;
 
     settings = {
-      monitor = ",preferred,auto,1";
+      monitor = ",preferred,auto,1.5";
 
       exec-once = [
         "waybar"
@@ -108,7 +108,7 @@
       bind = [
         # Apps
         "$mod, Return, exec, ghostty"
-        "$mod SHIFT, Return, exec, zen"
+        "$mod SHIFT, Return, exec, zen-beta"
         "$mod, E, exec, nautilus"
         "$mod, Space, exec, wofi --show drun"
         "$mod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
