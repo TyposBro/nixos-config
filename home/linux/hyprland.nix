@@ -102,7 +102,7 @@
         disable_hyprland_logo = true;
       };
 
-      "$mod" = "ALT";
+      "$mod" = "SUPER";
 
       bind = [
         # Apps
@@ -126,10 +126,6 @@
         "$mod, right, movefocus, r"
         "$mod, up, movefocus, u"
         "$mod, down, movefocus, d"
-
-        # Focus — vim keys (H/J/K only, L is lock)
-        "$mod, H, movefocus, l"
-        "$mod, K, movefocus, u"
 
         # Move windows
         "$mod SHIFT, left, movewindow, l"
@@ -161,13 +157,13 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
 
-        # Media
-        "$mod, M, exec, playerctl play-pause"
-        "$mod, bracketright, exec, playerctl next"
-        "$mod, bracketleft, exec, playerctl previous"
+        # Media (ALT modifier — keeps ALT/Option free from WM conflicts)
+        "ALT, M, exec, playerctl play-pause"
+        "ALT, bracketright, exec, playerctl next"
+        "ALT, bracketleft, exec, playerctl previous"
 
         # Wallpaper
-        "$mod, W, exec, $HOME/.local/bin/wallpaper-rotate"
+        "ALT, W, exec, $HOME/.local/bin/wallpaper-rotate"
 
         # Screenshots
         ", Print, exec, grimblast copy area"
@@ -181,14 +177,14 @@
       ];
 
       binde = [
-        "$mod CTRL, right, resizeactive, 30 0"
-        "$mod CTRL, left, resizeactive, -30 0"
-        "$mod CTRL, up, resizeactive, 0 -30"
-        "$mod CTRL, down, resizeactive, 0 30"
+        "$mod ALT, right, resizeactive, 30 0"
+        "$mod ALT, left, resizeactive, -30 0"
+        "$mod ALT, up, resizeactive, 0 -30"
+        "$mod ALT, down, resizeactive, 0 30"
 
         # Volume
-        "$mod, equal, exec, pamixer -i 5"
-        "$mod, minus, exec, pamixer -d 5"
+        "ALT, equal, exec, pamixer -i 5"
+        "ALT, minus, exec, pamixer -d 5"
       ];
 
       bindl = [

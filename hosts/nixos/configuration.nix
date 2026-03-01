@@ -138,6 +138,71 @@
   # Android (ADB + fastboot with udev rules)
   programs.adb.enable = true;
 
+  # Key remapping — swap Super and CTRL so physical Super acts like macOS CMD
+  # (sends CTRL to apps for copy/paste/save etc.) and physical CTRL acts
+  # as the WM modifier (sends Super to Hyprland).
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings = {
+        main = {
+          leftmeta = "layer(cmd)";
+          rightmeta = "layer(cmd)";
+          leftcontrol = "leftmeta";
+          rightcontrol = "rightmeta";
+        };
+      };
+      extraConfig = ''
+        [cmd]
+        a = C-a
+        b = C-b
+        c = C-c
+        d = C-d
+        e = C-e
+        f = C-f
+        g = C-g
+        h = C-h
+        i = C-i
+        j = C-j
+        k = C-k
+        l = C-l
+        m = C-m
+        n = C-n
+        o = C-o
+        p = C-p
+        q = C-q
+        r = C-r
+        s = C-s
+        t = C-t
+        u = C-u
+        v = C-v
+        w = C-w
+        x = C-x
+        y = C-y
+        z = C-z
+        1 = C-1
+        2 = C-2
+        3 = C-3
+        4 = C-4
+        5 = C-5
+        6 = C-6
+        7 = C-7
+        8 = C-8
+        9 = C-9
+        0 = C-0
+        left = home
+        right = end
+        up = C-home
+        down = C-end
+        backspace = C-backspace
+        slash = C-slash
+        equal = C-equal
+        minus = C-minus
+      '';
+    };
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
