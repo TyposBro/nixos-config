@@ -117,33 +117,21 @@ nr   # rebuild (alias)
 nru  # flake update + rebuild
 ```
 
-### Keybindings (Aerospace, CMD modifier)
+### Keybindings (Aerospace, Caps Lock = CMD)
+
+Caps Lock is remapped to Command so the modifier stays on the home row.
 
 | Binding | Action |
 |---|---|
-| `CMD + Enter` | Terminal (Ghostty) |
-| `CMD + SHIFT + Enter` | Zen Browser |
-| `CMD + Q` | Close window |
-| `CMD + F` | Fullscreen |
-| `CMD + SHIFT + T` | Toggle float/tile |
-| `CMD + /` | Toggle split direction |
-| `CMD + H/J/K/L` | Focus left/down/up/right |
-| `CMD + Arrows` | Focus left/down/up/right |
-| `CMD + SHIFT + H/J/K/L` | Move window |
-| `CMD + SHIFT + Arrows` | Move window |
-| `CMD + 1–9` | Switch workspace |
-| `CMD + SHIFT + 1–9` | Move window to workspace |
-| `CMD + CTRL + arrows` | Resize window |
-
-### Text editing remaps (macOS only)
-
-Since `CMD + Arrow` is used by AeroSpace, text navigation is remapped to `CTRL + Arrow` across native apps, VS Code, and Ghostty:
-
-| Binding | Action |
-|---|---|
-| `CTRL + Left/Right` | Beginning/end of line |
-| `CTRL + Up/Down` | Beginning/end of document |
-| `CTRL + SHIFT + Arrow` | Same with selection |
+| `CMD + Return` | Terminal (Ghostty) |
+| `CMD + Shift + Return` | Browser (Zen) |
+| `CMD + e` | Finder |
+| `CMD + q` | Close window |
+| `CMD + f` | Fullscreen |
+| `CMD + h / j / k / l` | Focus left / down / up / right |
+| `CMD + Shift + h / j / k / l` | Move window left / down / up / right |
+| `CMD + 1–9` | Switch to workspace 1–9 |
+| `CMD + Shift + 1–9` | Move window to workspace 1–9 |
 
 ## Mirrors
 
