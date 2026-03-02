@@ -6,7 +6,7 @@ NixOS 25.05 + macOS (nix-darwin) · Flakes · GNOME / Aerospace · x86_64-linux 
 
 ```
 home/
-  shared/    # git, vscode, fish, ghostty, packages — used by both platforms
+  shared/    # git, vscode, zed, fish, ghostty, packages — used by both platforms
   linux/     # GTK theming, Linux-only packages
   darwin/    # macOS fish aliases
 hosts/
@@ -21,7 +21,7 @@ hosts/
 | Desktop | GNOME | Aerospace |
 | Terminal | Ghostty | Ghostty (Homebrew) |
 | Browser | Zen Browser | — (install manually) |
-| Editors | VS Code + Vim | VS Code + Vim |
+| Editors | VS Code, Zed, Neovim | VS Code, Zed, Neovim |
 | AI | `claude-code`, `antigravity` | `claude-code`, `antigravity` |
 | Dev | `git`, `gh`, `postman`, `fnm` | `git`, `gh`, `postman`, `fnm` |
 | Notes | Obsidian | Obsidian |
@@ -65,6 +65,24 @@ ngc    # delete all old generations (sudo nix-collect-garbage -d)
 nopt   # deduplicate the store (sudo nix-store --optimise)
 ```
 
+### Keybindings (GNOME, Caps Lock = Super)
+
+Caps Lock is remapped to Super so the modifier stays on the home row.
+
+| Binding | Action |
+|---|---|
+| `Super + Return` | Terminal (Ghostty) |
+| `Super + Shift + Return` | Browser (Zen) |
+| `Super + e` | File Manager (Nautilus) |
+| `Super + q` | Close window |
+| `Super + f` | Fullscreen |
+| `Super + h / l` | Tile window left / right |
+| `Super + j / k` | Workspace down / up |
+| `Super + Shift + j / k` | Move window to workspace down / up |
+| `Super + 1–9` | Switch to workspace 1–9 |
+| `Super + Shift + 1–9` | Move window to workspace 1–9 |
+| `Super` (tap) | GNOME Activities / app search |
+
 ## macOS (nix-darwin)
 
 ### Bootstrap on a fresh Mac
@@ -99,7 +117,7 @@ nr   # rebuild (alias)
 nru  # flake update + rebuild
 ```
 
-### Keybindings (Aerospace, CMD modifier — mirrors Hyprland)
+### Keybindings (Aerospace, CMD modifier)
 
 | Binding | Action |
 |---|---|
