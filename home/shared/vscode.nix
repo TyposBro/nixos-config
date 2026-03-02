@@ -26,6 +26,12 @@
       ms-python.python
       ms-python.vscode-pylance
       bbenoist.nix
+
+      # Kotlin / Android
+      mathiasfrohlich.kotlin
+      vscjava.vscode-java-pack
+      vscjava.vscode-java-debug
+      vscjava.vscode-gradle
     ];
 
     profiles.default.userSettings = {

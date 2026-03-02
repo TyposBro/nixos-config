@@ -7,6 +7,7 @@
     ../shared/shell.nix
     ../shared/packages.nix
     ../shared/neovim.nix
+    ../shared/zed.nix
     ./apps.nix
   ];
 

@@ -7,8 +7,7 @@
     ../shared/shell.nix
     ../shared/packages.nix
     ../shared/neovim.nix
-    ./hyprland.nix
-    ./waybar.nix
+    ../shared/zed.nix
     ./apps.nix
   ];
 
@@ -35,20 +34,13 @@
     pavucontrol
     playerctl
 
-    # Hyprland ecosystem
-    hyprpaper
-    hyprlock
-    hypridle
-    grimblast
+    # Clipboard & display
     cliphist
     wl-clipboard
     brightnessctl
-    wofi
-    mako
 
     # Files & system
     nautilus
-    polkit_gnome
 
     # Android
     pkgs-unstable.android-studio

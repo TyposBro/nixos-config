@@ -34,14 +34,9 @@
     variant = "";
   };
 
-  # Display manager — SDDM with Wayland
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
-
-  # Hyprland window manager (uses nixpkgs binary — no compilation needed)
-  programs.hyprland.enable = true;
+  # GNOME desktop environment
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
 
   # GPU acceleration
   hardware.graphics.enable = true;
@@ -99,15 +94,11 @@
   # Printing
   services.printing.enable = true;
 
-  # Bluetooth
+  # Bluetooth (managed by GNOME)
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
 
   # Secrets / keyring (used by many apps)
   services.gnome.gnome-keyring.enable = true;
-
-  # Allow hyprlock to authenticate via PAM
-  security.pam.services.hyprlock = {};
 
   # Enable sudo for wheel group
   security.sudo.enable = true;

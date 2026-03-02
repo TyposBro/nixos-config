@@ -1,16 +1,16 @@
 # typosbro's Nix Configuration
 
-NixOS 25.05 + macOS (nix-darwin) · Flakes · Hyprland / Aerospace · x86_64-linux · aarch64-darwin
+NixOS 25.05 + macOS (nix-darwin) · Flakes · GNOME / Aerospace · x86_64-linux · aarch64-darwin
 
 ## Structure
 
 ```
 home/
   shared/    # git, vscode, fish, ghostty, packages — used by both platforms
-  linux/     # Hyprland, Waybar, Mako, Wofi, Linux-only packages
+  linux/     # GTK theming, Linux-only packages
   darwin/    # macOS fish aliases
 hosts/
-  nixos/     # NixOS system config (SDDM + Hyprland)
+  nixos/     # NixOS system config (GDM + GNOME)
   macbook/   # nix-darwin system config (Aerospace tiling WM)
 ```
 
@@ -18,7 +18,7 @@ hosts/
 
 | Category | Linux | macOS |
 |---|---|---|
-| WM | Hyprland + Waybar + Wofi + Mako | Aerospace |
+| Desktop | GNOME | Aerospace |
 | Terminal | Ghostty | Ghostty (Homebrew) |
 | Browser | Zen Browser | — (install manually) |
 | Editors | VS Code + Vim | VS Code + Vim |
@@ -58,22 +58,12 @@ nr   # rebuild (alias)
 nru  # flake update + rebuild
 ```
 
-### Keybindings (Hyprland, ALT modifier)
+### Delete old builds
 
-| Binding | Action |
-|---|---|
-| `ALT + Enter` | Terminal (Ghostty) |
-| `ALT + SHIFT + Enter` | Zen Browser |
-| `ALT + Space` | App launcher (Wofi) |
-| `ALT + Q` | Close window |
-| `ALT + F` | Fullscreen |
-| `ALT + T` | Toggle float |
-| `ALT + L` | Lock screen |
-| `ALT + H/J/K/L` | Focus left/down/up/right |
-| `ALT + 1–9` | Switch workspace |
-| `ALT + SHIFT + 1–9` | Move window to workspace |
-| `ALT + CTRL + arrows` | Resize window |
-| `ALT + SHIFT + S` | Screenshot (area) |
+```bash
+ngc    # delete all old generations (sudo nix-collect-garbage -d)
+nopt   # deduplicate the store (sudo nix-store --optimise)
+```
 
 ## macOS (nix-darwin)
 

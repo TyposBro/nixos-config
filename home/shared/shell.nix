@@ -22,6 +22,10 @@
       gd  = "git diff";
       gl  = "git log --oneline --graph --decorate";
 
+      # Nix cleanup
+      ngc = "sudo nix-collect-garbage -d";
+      nopt = "sudo nix-store --optimise";
+
       # nixos-config dir
       ncd = "cd ~/nixos-config";
     };
