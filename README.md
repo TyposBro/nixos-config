@@ -1,27 +1,27 @@
 # typosbro's Nix Configuration
 
-NixOS 25.05 + macOS (nix-darwin) · Flakes · GNOME / Aerospace · x86_64-linux · aarch64-darwin
+NixOS 25.05 + macOS (nix-darwin) · Flakes · GNOME · x86_64-linux · aarch64-darwin
 
 ## Structure
 
 ```
 home/
-  shared/    # git, vscode, zed, fish, ghostty, packages — used by both platforms
+  shared/    # git, vscode, fish, ghostty, packages — used by both platforms
   linux/     # GTK theming, Linux-only packages
   darwin/    # macOS fish aliases
 hosts/
   nixos/     # NixOS system config (GDM + GNOME)
-  macbook/   # nix-darwin system config (Aerospace tiling WM)
+  macbook/   # nix-darwin system config
 ```
 
 ## Packages
 
 | Category | Linux | macOS |
 |---|---|---|
-| Desktop | GNOME | Aerospace |
+| Desktop | GNOME | macOS default |
 | Terminal | Ghostty | Ghostty (Homebrew) |
 | Browser | Zen Browser | — (install manually) |
-| Editors | VS Code, Zed, Neovim | VS Code, Zed, Neovim |
+| Editors | VS Code, Neovim | VS Code, Neovim |
 | AI | `claude-code`, `antigravity` | `claude-code`, `antigravity` |
 | Dev | `git`, `gh`, `postman`, `fnm` | `git`, `gh`, `postman`, `fnm` |
 | Notes | Obsidian | Obsidian |
@@ -116,22 +116,6 @@ brew install --cask ghostty discord spotify telegram bitwarden qbittorrent andro
 nr   # rebuild (alias)
 nru  # flake update + rebuild
 ```
-
-### Keybindings (Aerospace, Caps Lock = CMD)
-
-Caps Lock is remapped to Command so the modifier stays on the home row.
-
-| Binding | Action |
-|---|---|
-| `CMD + Return` | Terminal (Ghostty) |
-| `CMD + Shift + Return` | Browser (Zen) |
-| `CMD + e` | Finder |
-| `CMD + q` | Close window |
-| `CMD + f` | Fullscreen |
-| `CMD + h / j / k / l` | Focus left / down / up / right |
-| `CMD + Shift + h / j / k / l` | Move window left / down / up / right |
-| `CMD + 1–9` | Switch to workspace 1–9 |
-| `CMD + Shift + 1–9` | Move window to workspace 1–9 |
 
 ## Mirrors
 

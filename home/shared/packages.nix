@@ -5,8 +5,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    # Editors (vscode managed by programs.vscode in vscode.nix)
-    zed-editor
+    # Editor (vscode managed by programs.vscode in vscode.nix)
     claude-code          # from overlay — always latest
 
     # Dev tools
