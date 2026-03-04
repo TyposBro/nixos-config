@@ -1,17 +1,17 @@
 # typosbro's Nix Configuration
 
-NixOS 25.05 + macOS (nix-darwin) · Flakes · GNOME · x86_64-linux · aarch64-darwin
+NixOS 25.11 + macOS (nix-darwin) · Flakes · GNOME · x86_64-linux · aarch64-darwin
 
 ## Structure
 
 ```
 home/
-  shared/    # git, vscode, fish, ghostty, packages — used by both platforms
-  linux/     # GTK theming, Linux-only packages
-  darwin/    # macOS fish aliases
+  shared/    # git, neovim, vscode, fish, ghostty, starship, packages
+  linux/     # GTK theming, rofi, GNOME keybindings, Linux-only packages
+  darwin/    # macOS fish aliases, Ghostty overrides
 hosts/
   nixos/     # NixOS system config (GDM + GNOME)
-  macbook/   # nix-darwin system config
+  macbook/   # nix-darwin system config + declarative Homebrew
 ```
 
 ## Packages
@@ -20,16 +20,32 @@ hosts/
 |---|---|---|
 | Desktop | GNOME | macOS default |
 | Terminal | Ghostty | Ghostty (Homebrew) |
-| Browser | Zen Browser | — (install manually) |
+| Shell | Fish + Starship | Fish + Starship |
+| Browser | Zen Browser | Zen, Brave (Homebrew) |
 | Editors | VS Code, Neovim | VS Code, Neovim |
+| Launcher | Rofi | Raycast (Homebrew) |
 | AI | `claude-code`, `antigravity` | `claude-code`, `antigravity` |
-| Dev | `git`, `gh`, `postman`, `fnm` | `git`, `gh`, `postman`, `fnm` |
+| Dev | `git`, `gh`, `glab`, `postman`, `fnm`, `deno` | `git`, `gh`, `glab`, `postman`, `fnm`, `deno` |
 | Notes | Obsidian | Obsidian |
 | Communication | Telegram, Discord, Bitwarden | Telegram, Discord, Bitwarden (Homebrew) |
-| Media | Spotify, EasyEffects | Spotify (Homebrew) |
-| VPN | ProtonVPN | — |
-| Torrents | qBittorrent | qBittorrent (Homebrew) |
-| Utils | `btop`, `jq`, `unzip` | `btop`, `jq`, `unzip` |
+| Media | Spotify, mpv, EasyEffects | Spotify (Homebrew), mpv, iina (Homebrew) |
+| VPN | ProtonVPN | ProtonVPN, Windscribe (Homebrew) |
+| Torrents | qBittorrent | qBittorrent |
+| Utils | `btop`, `htop`, `jq`, `fzf`, `lazygit`, `tmux` | `btop`, `htop`, `jq`, `fzf`, `lazygit`, `tmux` |
+
+### Neovim IDE
+
+Fully configured via home-manager with:
+- **LSP**: TypeScript, Tailwind CSS, Lua, Nix, Python, ESLint
+- **Completion**: nvim-cmp + LuaSnip + friendly-snippets
+- **Treesitter**: 15 parsers (tsx, typescript, javascript, json, lua, nix, html, css, etc.)
+- **Formatting**: conform.nvim (prettierd, stylua)
+- **Linting**: nvim-lint (eslint_d)
+- **UI**: lualine, bufferline, gitsigns, indent-blankline, which-key, catppuccin
+
+### VS Code
+
+Declarative extensions via nixpkgs (`mutableExtensionsDir = false`). Vim keybindings with `<Space>` leader.
 
 ## Linux (NixOS)
 
@@ -71,6 +87,7 @@ Caps Lock is remapped to Super so the modifier stays on the home row.
 
 | Binding | Action |
 |---|---|
+| `Super + Space` | Rofi app launcher |
 | `Super + Return` | Terminal (Ghostty) |
 | `Super + Shift + Return` | Browser (Zen) |
 | `Super + e` | File Manager (Nautilus) |
@@ -81,7 +98,6 @@ Caps Lock is remapped to Super so the modifier stays on the home row.
 | `Super + Shift + j / k` | Move window to workspace down / up |
 | `Super + 1–9` | Switch to workspace 1–9 |
 | `Super + Shift + 1–9` | Move window to workspace 1–9 |
-| `Super` (tap) | GNOME Activities / app search |
 
 ## macOS (nix-darwin)
 
@@ -104,11 +120,15 @@ nix run nix-darwin -- switch --flake .#macbook
 
 ### macOS GUI apps (Homebrew)
 
-Some GUI apps are broken/unavailable in nixpkgs on macOS and are installed via Homebrew casks instead:
+GUI apps not in nixpkgs are managed declaratively via `homebrew` in `configuration.nix`:
 
-```bash
-brew install --cask ghostty discord spotify telegram bitwarden qbittorrent android-studio zen-browser
 ```
+brave-browser, zen, discord, spotify, android-studio, docker-desktop,
+github, claude, alt-tab, raycast, obs, eqmac, iina, kdenlive, lastfm,
+protonvpn, windscribe, bitwarden, ghostty, karabiner-elements, ngrok, au-lab
+```
+
+Homebrew casks auto-install on rebuild. `cleanup = "zap"` removes anything not declared.
 
 ### Rebuild / update
 

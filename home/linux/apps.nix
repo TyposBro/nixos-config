@@ -7,6 +7,83 @@
     nru = "cd ~/nixos-config && nix flake update && sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
   };
 
+  # Rofi — app launcher (Raycast equivalent for Linux)
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi-wayland;
+    terminal = "ghostty";
+    theme = "catppuccin-mocha";
+    extraConfig = {
+      modi = "drun,run,window";
+      show-icons = true;
+      display-drun = "Apps";
+      display-run = "Run";
+      display-window = "Windows";
+    };
+  };
+
+  # Catppuccin Mocha theme for rofi
+  xdg.configFile."rofi/catppuccin-mocha.rasi".text = ''
+    * {
+      bg: #1e1e2e;
+      bg-alt: #313244;
+      fg: #cdd6f4;
+      fg-alt: #bac2de;
+      accent: #cba6f7;
+      urgent: #f38ba8;
+
+      background-color: @bg;
+      text-color: @fg;
+    }
+
+    window {
+      width: 600px;
+      border: 2px;
+      border-color: @accent;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    inputbar {
+      children: [ prompt, entry ];
+      spacing: 10px;
+      padding: 8px 12px;
+      background-color: @bg-alt;
+      border-radius: 8px;
+    }
+
+    prompt {
+      text-color: @accent;
+    }
+
+    entry {
+      placeholder: "Search...";
+      placeholder-color: @fg-alt;
+    }
+
+    listview {
+      lines: 8;
+      columns: 1;
+      spacing: 4px;
+      padding: 8px 0 0 0;
+    }
+
+    element {
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    element selected {
+      background-color: @bg-alt;
+      text-color: @accent;
+    }
+
+    element-icon {
+      size: 24px;
+      margin: 0 10px 0 0;
+    }
+  '';
+
   # Ghostty Linux-specific options (appended to shared config)
   xdg.configFile."ghostty/config".text = ''
     font-family = JetBrainsMono Nerd Font
@@ -129,6 +206,7 @@
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
       ];
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -145,6 +223,11 @@
       name    = "File Manager";
       command = "nautilus";
       binding = "<Super>e";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+      name    = "Rofi";
+      command = "rofi -show drun";
+      binding = "<Super>space";
     };
   };
 
