@@ -32,18 +32,7 @@
         plugin = catppuccin-nvim;
         type = "lua";
         config = ''
-          require("catppuccin").setup({
-            flavour = "mocha",
-            integrations = {
-              cmp = true,
-              gitsigns = true,
-              treesitter = true,
-              neo_tree = true,
-              indent_blankline = { enabled = true },
-              which_key = true,
-              native_lsp = { enabled = true },
-            },
-          })
+          require("catppuccin").setup({ flavour = "mocha" })
           vim.cmd.colorscheme("catppuccin")
         '';
       }
@@ -343,7 +332,10 @@
               },
               separator_style = "slant",
             },
-            highlights = require("catppuccin.groups.integrations.bufferline").get(),
+            highlights = (function()
+              local ok, hl = pcall(require, "catppuccin.groups.integrations.bufferline")
+              return ok and hl.get() or {}
+            end)(),
           })
           vim.keymap.set("n", "H", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
           vim.keymap.set("n", "L", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })

@@ -46,5 +46,6 @@
     cursor-style = bar
     shell-integration = fish
     window-decoration = false
+    command = /run/current-system/sw/bin/fish
   '';
 }
