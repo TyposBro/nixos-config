@@ -104,7 +104,6 @@
       }
 
       # ── Completion (sources + snippets, no config — must be before cmp) ──
-      cmp-nvim-lsp
       cmp-buffer
       cmp-path
       cmp_luasnip
@@ -181,11 +180,11 @@
       }
 
       # ── LSP ──────────────────────────────────────────────────
+      nvim-lspconfig # still needed for filetypes/cmd defaults
       {
-        plugin = nvim-lspconfig;
+        plugin = cmp-nvim-lsp;
         type = "lua";
         config = ''
-          local lspconfig = require("lspconfig")
           local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
           -- Keymaps on LspAttach
@@ -216,10 +215,10 @@
           })
 
           -- TypeScript / JavaScript (React Native)
-          lspconfig.ts_ls.setup({ capabilities = capabilities })
+          vim.lsp.config("ts_ls", { capabilities = capabilities })
 
           -- Tailwind CSS / NativeWind
-          lspconfig.tailwindcss.setup({
+          vim.lsp.config("tailwindcss", {
             capabilities = capabilities,
             settings = {
               tailwindCSS = {
@@ -235,7 +234,7 @@
           })
 
           -- Lua (Neovim config)
-          lspconfig.lua_ls.setup({
+          vim.lsp.config("lua_ls", {
             capabilities = capabilities,
             settings = {
               Lua = {
@@ -248,13 +247,16 @@
           })
 
           -- Nix
-          lspconfig.nil_ls.setup({ capabilities = capabilities })
+          vim.lsp.config("nil_ls", { capabilities = capabilities })
 
           -- Python
-          lspconfig.pyright.setup({ capabilities = capabilities })
+          vim.lsp.config("pyright", { capabilities = capabilities })
 
           -- ESLint
-          lspconfig.eslint.setup({ capabilities = capabilities })
+          vim.lsp.config("eslint", { capabilities = capabilities })
+
+          -- Enable all configured servers
+          vim.lsp.enable({ "ts_ls", "tailwindcss", "lua_ls", "nil_ls", "pyright", "eslint" })
         '';
       }
 
