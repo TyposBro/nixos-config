@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, pkgs-unstable, lib, ... }:
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
@@ -18,7 +18,7 @@ in
     git-filter-repo
 
     # React Native
-    watchman
+    pkgs-unstable.watchman
     nodePackages.typescript
     nodePackages.typescript-language-server
 
