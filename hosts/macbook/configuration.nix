@@ -93,9 +93,10 @@
   };
 
   # Create macOS aliases for Nix apps so Spotlight can find them
-  system.activationScripts.applications.text = ''
-    echo "setting up /Applications/Nix Apps..." >&2
-    app_dir="/Applications/Nix Apps"
+  # Uses a separate directory to avoid nix-darwin overwriting /Applications/Nix Apps
+  system.activationScripts.nixAppsAliases.text = ''
+    echo "setting up Spotlight aliases for Nix apps..." >&2
+    app_dir="/Applications/Nix Aliases"
     rm -rf "$app_dir"
     mkdir -p "$app_dir"
     for app in /Users/typosbro/Applications/Home\ Manager\ Apps/*.app; do

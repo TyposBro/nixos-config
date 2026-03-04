@@ -6,6 +6,10 @@
     enable = true;
     interactiveShellInit = ''
       fnm env --use-on-cd --shell fish | source
+      # GitHub token for Nix flake fetches (avoids API rate limits)
+      if command -q gh
+        set -gx NIX_CONFIG "access-tokens = github.com=$(gh auth token 2>/dev/null)"
+      end
     '';
     shellAliases = {
       # System
@@ -51,7 +55,8 @@
     background-opacity = 0.9
     cursor-style = bar
     shell-integration = fish
-    window-decoration = false
+    window-decoration = true
+    macos-titlebar-tabs = true
     command = /run/current-system/sw/bin/fish
   '';
 }

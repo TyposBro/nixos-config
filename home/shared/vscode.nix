@@ -1,12 +1,10 @@
 { pkgs, ... }:
 
-let
-  marketplace = pkgs.vscode-utils.extensionFromVscodeMarketplace;
-in
 {
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
+    mutableExtensionsDir = false;
 
     profiles.default.extensions = with pkgs.vscode-extensions; [
       # Theme
@@ -51,20 +49,6 @@ in
       mikestead.dotenv
       wix.vscode-import-cost
       firsttris.vscode-jest-runner
-    ] ++ [
-      # Marketplace extensions (not in nixpkgs)
-      (marketplace {
-        name = "vscode-react-native";
-        publisher = "msjsdiag";
-        version = "1.13.0";
-        sha256 = "0s0npjnzqj3g877b9kqgc07dipww468sfbiwnf55yvvcxyhb7g6f";
-      })
-      (marketplace {
-        name = "es7-react-js-snippets";
-        publisher = "dsznajder";
-        version = "4.4.3";
-        sha256 = "1xyhysvsf718vp2b36y1p02b6hy1y2nvv80chjnqcm3gk387jps0";
-      })
     ];
 
     profiles.default.userSettings = {
@@ -218,11 +202,6 @@ in
 
         # Terminal
         { before = [ "<leader>" "t" ]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
-
-        # React Native
-        { before = [ "<leader>" "r" "s" ]; commands = [ "reactNative.runExpoWeb" ]; }
-        { before = [ "<leader>" "r" "a" ]; commands = [ "reactNative.runAndroid" ]; }
-        { before = [ "<leader>" "r" "i" ]; commands = [ "reactNative.runIos" ]; }
 
         # Git
         { before = [ "<leader>" "g" "s" ]; commands = [ "workbench.view.scm" ]; }
