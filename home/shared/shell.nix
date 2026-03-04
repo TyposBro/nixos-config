@@ -37,6 +37,12 @@
     };
   };
 
+  # Starship prompt
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   # Ghostty terminal (shared config — works on Linux and macOS)
   xdg.configFile."ghostty/config".text = ''
     font-family = JetBrainsMono Nerd Font

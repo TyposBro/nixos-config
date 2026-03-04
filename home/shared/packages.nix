@@ -10,6 +10,13 @@ in
 
     # Dev tools
     postman
+    cocoapods
+    deno
+    gradle
+    python3
+    ruby
+    git-lfs
+    git-filter-repo
 
     # Notes
     obsidian
@@ -19,18 +26,35 @@ in
     nodePackages.typescript
     nodePackages.typescript-language-server
 
+    # Media
+    ffmpeg
+    mpv
+    yt-dlp
+    tesseract
+
+    # CLI tools
+    aria2
+    cloc
+    fzf
+    htop
+    lazygit
+    rename
+    tectonic
+    tmux
+
     # Utils
     btop
     unzip
     jq
-  ] ++ lib.optionals (!isDarwin) [
-    # These are broken or unavailable on macOS in nixpkgs 25.05
-    # Install them via Homebrew casks on macOS instead
-    ghostty
+
+    # GUI (cross-platform)
     telegram-desktop
+    qbittorrent
+  ] ++ lib.optionals (!isDarwin) [
+    # Unavailable on macOS in nixpkgs 25.05
+    ghostty
     discord
     bitwarden-desktop
     spotify
-    qbittorrent
   ];
 }
