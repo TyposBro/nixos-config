@@ -56,7 +56,7 @@
     cursor-style = bar
     shell-integration = fish
     window-decoration = true
-    macos-titlebar-tabs = true
+    macos-titlebar-style = tabs
     command = /run/current-system/sw/bin/fish
   '';
 }

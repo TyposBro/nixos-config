@@ -71,6 +71,7 @@
 
       # Productivity
       "alt-tab"
+      "raycast"
       "obs"
 
       # Media
