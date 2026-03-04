@@ -28,6 +28,12 @@
 
       # nixos-config dir
       ncd = "cd ~/nixos-config";
+
+      # React Native / Expo
+      exs  = "npx expo start";
+      exc  = "npx expo start --clear";
+      expa = "npx expo run:android";
+      expi = "npx expo run:ios";
     };
   };
 

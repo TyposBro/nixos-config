@@ -14,6 +14,11 @@ in
     # Notes
     obsidian
 
+    # React Native
+    watchman
+    nodePackages.typescript
+    nodePackages.typescript-language-server
+
     # Utils
     btop
     unzip
