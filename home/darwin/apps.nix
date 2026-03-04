@@ -1,6 +1,10 @@
 { lib, ... }:
 
 {
+  # Workaround: macOS Sequoia TCC rejects copyApps signature validation
+  # https://github.com/nix-community/home-manager/issues/8336
+  targets.darwin.copyApps.enable = false;
+  targets.darwin.linkApps.enable = true;
   # Ensure nix-darwin and home-manager paths are available on macOS
   programs.fish.interactiveShellInit = lib.mkBefore ''
     fish_add_path --prepend /run/current-system/sw/bin ~/.nix-profile/bin
