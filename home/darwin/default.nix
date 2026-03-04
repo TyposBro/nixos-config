@@ -20,11 +20,7 @@
     # AI
     pkgs-unstable.antigravity
 
-    # GUI apps (migrated from Homebrew casks / manual installs)
+    # Android
     android-tools
-    brave
-    docker
-    iina
-    karabiner-elements
   ];
 }

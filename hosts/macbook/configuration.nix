@@ -44,6 +44,68 @@
     fnm
   ];
 
+  # Homebrew — managed declaratively by nix-darwin
+  homebrew = {
+    enable = true;
+    onActivation = {
+      cleanup = "zap";       # remove casks not listed here
+      autoUpdate = true;
+      upgrade = true;
+    };
+    casks = [
+      # Browsers
+      "brave-browser"
+      "zen"
+
+      # Chat & social
+      "discord"
+      "spotify"
+
+      # Dev tools
+      "android-studio"
+      "docker"
+      "github"
+
+      # AI
+      "claude"
+
+      # Productivity
+      "alt-tab"
+      "obs"
+
+      # Media
+      "eqmac"
+      "iina"
+      "kdenlive"
+      "lastfm"
+
+      # VPN & networking
+      "protonvpn"
+      "windscribe"
+
+      # System
+      "bitwarden"
+      "ghostty"
+      "karabiner-elements"
+      "ngrok"
+      "au-lab"
+    ];
+  };
+
+  # Create macOS aliases for Nix apps so Spotlight can find them
+  system.activationScripts.applications.text = ''
+    echo "setting up /Applications/Nix Apps..." >&2
+    app_dir="/Applications/Nix Apps"
+    rm -rf "$app_dir"
+    mkdir -p "$app_dir"
+    for app in /Users/typosbro/Applications/Home\ Manager\ Apps/*.app; do
+      [ -e "$app" ] || continue
+      app_name=$(basename "$app")
+      echo "  aliasing $app_name" >&2
+      ${pkgs.mkalias}/bin/mkalias "$app" "$app_dir/$app_name"
+    done
+  '';
+
   # Primary user — update username/home if different on your Mac
   users.users.typosbro = {
     home = "/Users/typosbro";

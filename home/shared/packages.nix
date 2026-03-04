@@ -9,7 +9,6 @@ in
     claude-code          # from overlay — always latest
 
     # Dev tools
-    postman
     cocoapods
     deno
     gradle
@@ -17,9 +16,6 @@ in
     ruby
     git-lfs
     git-filter-repo
-
-    # Notes
-    obsidian
 
     # React Native
     watchman
@@ -31,6 +27,9 @@ in
     mpv
     yt-dlp
     tesseract
+
+    # Cloud
+    google-cloud-sdk
 
     # CLI tools
     aria2
@@ -48,6 +47,8 @@ in
     jq
 
     # GUI (cross-platform)
+    postman
+    obsidian
     telegram-desktop
     qbittorrent
   ] ++ lib.optionals (!isDarwin) [
