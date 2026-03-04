@@ -3,9 +3,9 @@
 {
   programs.git = {
     enable = true;
-    userName = "TyposBro";
-    userEmail = "typosbro@proton.me";
-    extraConfig = {
+    settings = {
+      user.name = "TyposBro";
+      user.email = "typosbro@proton.me";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       pull.rebase = false;
@@ -17,7 +17,10 @@
 
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes";
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      extraOptions.AddKeysToAgent = "yes";
+    };
     matchBlocks."github.com" = {
       hostname = "github.com";
       user = "git";
