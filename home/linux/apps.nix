@@ -10,7 +10,7 @@
   # Rofi — app launcher (Raycast equivalent for Linux)
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
+    package = pkgs.rofi;
     terminal = "ghostty";
     theme = "catppuccin-mocha";
     extraConfig = {
@@ -88,7 +88,7 @@
   xdg.configFile."ghostty/config".text = ''
     font-family = JetBrainsMono Nerd Font
     font-size = 17
-    theme = catppuccin-mocha
+    theme = Catppuccin Mocha
     background-opacity = 0.9
     cursor-style = bar
     shell-integration = fish
@@ -227,7 +227,7 @@
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
       name    = "Rofi";
       command = "rofi -show drun";
-      binding = "<Super>space";
+      binding = "<Alt>space";
     };
   };
 

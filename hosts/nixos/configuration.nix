@@ -62,6 +62,7 @@
   # Kernel parameters for NVIDIA + Wayland
   boot.kernelParams = [
     "nvidia-drm.modeset=1"
+    "nvidia-drm.fbdev=1"
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
   ];
 
@@ -120,8 +121,8 @@
     shell = pkgs.fish;
   };
 
-  # SSH key agent
-  programs.ssh.startAgent = true;
+  # SSH key agent — GNOME provides gcr-ssh-agent, so disable the standalone one
+  programs.ssh.startAgent = false;
 
   # Fish shell (user config & aliases managed by home-manager)
   programs.fish.enable = true;
