@@ -5,7 +5,6 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      fnm env --use-on-cd --shell fish | source
       # GitHub token for Nix flake fetches (avoids API rate limits)
       if command -q gh
         set -gx NIX_CONFIG "access-tokens = github.com=$(gh auth token 2>/dev/null)"

@@ -9,7 +9,7 @@ in
     claude-code          # from overlay — always latest
 
     # Dev tools
-    cocoapods
+    nodejs
     deno
     gradle
     python3
@@ -51,8 +51,11 @@ in
     obsidian
     telegram-desktop
     qbittorrent
+  ] ++ lib.optionals isDarwin [
+    # macOS-only
+    cocoapods
   ] ++ lib.optionals (!isDarwin) [
-    # Unavailable on macOS in nixpkgs 25.05
+    # Unavailable on macOS in nixpkgs
     ghostty
     discord
     bitwarden-desktop
