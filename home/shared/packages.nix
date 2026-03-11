@@ -53,7 +53,6 @@ in
     # GUI (cross-platform)
     postman
     obsidian
-    telegram-desktop
     qbittorrent
   ] ++ lib.optionals isDarwin [
     # macOS-only
@@ -64,5 +63,6 @@ in
     discord
     bitwarden-desktop
     spotify
+    telegram-desktop
   ];
 }

@@ -60,6 +60,7 @@
       # Chat & social
       "discord"
       "spotify"
+      "telegram"
 
       # Dev tools
       "android-studio"
