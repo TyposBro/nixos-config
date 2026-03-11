@@ -17,15 +17,19 @@ in
     git-lfs
     git-filter-repo
 
+    # Rust
+    rustc
+    cargo
+    rust-analyzer
+
     # React Native
+    bun
     pkgs-unstable.watchman
     nodePackages.typescript
     nodePackages.typescript-language-server
 
     # Media
-    ffmpeg
     mpv
-    yt-dlp
     tesseract
 
     # Cloud

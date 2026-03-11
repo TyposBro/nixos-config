@@ -34,6 +34,8 @@
       ms-python.vscode-pylance
       bbenoist.nix
       yzhang.markdown-all-in-one
+      rust-lang.rust-analyzer
+      tamasfe.even-better-toml
 
       # Kotlin / Android
       mathiasfrohlich.kotlin
@@ -83,6 +85,9 @@
 
       # Git
       "git.autofetch" = true;
+      "git.enableSmartCommit" = true;       # commit all changes without staging prompt
+      "git.confirmSync" = false;            # no push/pull confirmation
+      "git.postCommitCommand" = "none";     # don't prompt to sync after commit
       "gitlens.mode.active" = "zen";
 
       # TypeScript
@@ -118,6 +123,13 @@
         "className\\s*:\\s*['\"]([^'\"]*)"
         "tw`([^`]*)"
       ];
+
+      # Rust
+      "rust-analyzer.check.command" = "clippy";
+      "rust-analyzer.inlayHints.parameterHints.enable" = false;
+      "[rust]"."editor.defaultFormatter" = "rust-lang.rust-analyzer";
+      "[rust]"."editor.formatOnSave" = true;
+      "[toml]"."editor.defaultFormatter" = "tamasfe.even-better-toml";
 
       # File associations
       "files.associations" = {
