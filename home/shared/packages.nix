@@ -17,10 +17,8 @@ in
     git-lfs
     git-filter-repo
 
-    # Rust
-    rustc
-    cargo
-    rust-analyzer
+    # Rust (toolchain managed by rustup)
+    rustup
 
     # React Native
     bun
