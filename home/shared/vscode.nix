@@ -19,7 +19,6 @@
       dbaeumer.vscode-eslint
 
       # Editor enhancements
-      vscodevim.vim
       christian-kohler.path-intellisense
       streetsidesoftware.code-spell-checker
       formulahendry.auto-rename-tag
@@ -159,76 +158,6 @@
       # Todo Tree
       "todo-tree.general.tags" = [ "TODO" "FIXME" "HACK" "BUG" ];
 
-      # Vim
-      "vim.leader" = "<space>";
-      "vim.useSystemClipboard" = true;
-      "vim.hlsearch" = true;
-      "vim.smartRelativeLine" = true;
-      "vim.highlightedyank.enable" = true;
-      "vim.handleKeys" = {
-        "<C-a>" = false; # select all
-        "<C-c>" = false; # copy
-        "<C-v>" = false; # paste
-        "<C-x>" = false; # cut
-        "<C-z>" = false; # undo
-        "<C-f>" = false; # find
-      };
-
-      # Vim normal mode — leader keybindings
-      "vim.normalModeKeyBindingsNonRecursive" = [
-        # File / explorer
-        { before = [ "<leader>" "e" ]; commands = [ "workbench.action.toggleSidebarVisibility" ]; }
-        { before = [ "<leader>" "f" "f" ]; commands = [ "workbench.action.quickOpen" ]; }
-        { before = [ "<leader>" "f" "g" ]; commands = [ "workbench.action.findInFiles" ]; }
-        { before = [ "<leader>" "f" "s" ]; commands = [ "workbench.action.files.save" ]; }
-
-        # Splits
-        { before = [ "<leader>" "v" ]; commands = [ "workbench.action.splitEditor" ]; }
-        { before = [ "<leader>" "s" ]; commands = [ "workbench.action.splitEditorDown" ]; }
-
-        # Split navigation
-        { before = [ "<C-h>" ]; commands = [ "workbench.action.focusLeftGroup" ]; }
-        { before = [ "<C-l>" ]; commands = [ "workbench.action.focusRightGroup" ]; }
-        { before = [ "<C-j>" ]; commands = [ "workbench.action.focusBelowGroup" ]; }
-        { before = [ "<C-k>" ]; commands = [ "workbench.action.focusAboveGroup" ]; }
-
-        # Buffers / tabs
-        { before = [ "<leader>" "b" "d" ]; commands = [ "workbench.action.closeActiveEditor" ]; }
-        { before = [ "<leader>" "b" "o" ]; commands = [ "workbench.action.closeOtherEditors" ]; }
-        { before = [ "L" ]; commands = [ "workbench.action.nextEditor" ]; }
-        { before = [ "H" ]; commands = [ "workbench.action.previousEditor" ]; }
-
-        # LSP / code actions
-        { before = [ "g" "d" ]; commands = [ "editor.action.revealDefinition" ]; }
-        { before = [ "g" "r" ]; commands = [ "editor.action.goToReferences" ]; }
-        { before = [ "g" "i" ]; commands = [ "editor.action.goToImplementation" ]; }
-        { before = [ "g" "t" ]; commands = [ "editor.action.goToTypeDefinition" ]; }
-        { before = [ "K" ]; commands = [ "editor.action.showHover" ]; }
-        { before = [ "<leader>" "c" "a" ]; commands = [ "editor.action.quickFix" ]; }
-        { before = [ "<leader>" "r" "n" ]; commands = [ "editor.action.rename" ]; }
-
-        # Diagnostics
-        { before = [ "]" "d" ]; commands = [ "editor.action.marker.next" ]; }
-        { before = [ "[" "d" ]; commands = [ "editor.action.marker.prev" ]; }
-        { before = [ "<leader>" "d" "d" ]; commands = [ "workbench.actions.view.problems" ]; }
-
-        # Terminal
-        { before = [ "<leader>" "t" ]; commands = [ "workbench.action.terminal.toggleTerminal" ]; }
-
-        # Git
-        { before = [ "<leader>" "g" "s" ]; commands = [ "workbench.view.scm" ]; }
-        { before = [ "<leader>" "g" "b" ]; commands = [ "gitlens.toggleFileBlame" ]; }
-      ];
-
-      # Vim visual mode
-      "vim.visualModeKeyBindingsNonRecursive" = [
-        # Stay in visual mode after indent
-        { before = [ ">" ]; commands = [ "editor.action.indentLines" ]; }
-        { before = [ "<" ]; commands = [ "editor.action.outdentLines" ]; }
-        # Move lines up/down
-        { before = [ "J" ]; commands = [ "editor.action.moveLinesDownAction" ]; }
-        { before = [ "K" ]; commands = [ "editor.action.moveLinesUpAction" ]; }
-      ];
     };
 
   };
