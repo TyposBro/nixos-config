@@ -32,6 +32,7 @@ in
 
     # Cloud
     awscli2
+    cloudflared
     google-cloud-sdk
 
     # CLI tools
