@@ -31,6 +31,7 @@ in
     tesseract
 
     # Cloud
+    awscli2
     google-cloud-sdk
 
     # CLI tools

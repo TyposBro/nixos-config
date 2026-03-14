@@ -73,6 +73,10 @@
     NVD_BACKEND                = "direct";
   };
 
+  # Docker with NVIDIA GPU support
+  virtualisation.docker.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
+
   # Steam (needs system-level 32-bit support and udev rules)
   programs.steam.enable = true;
 
@@ -117,7 +121,7 @@
     isNormalUser = true;
     initialPassword = "5454";
     description = "typosbro";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "adbusers" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "adbusers" "docker" ];
     shell = pkgs.fish;
   };
 
