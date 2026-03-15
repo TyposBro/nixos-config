@@ -96,6 +96,15 @@
     pulse.enable = true;
   };
 
+  # Disable sleep/suspend on lid close & power button
+  services.logind = {
+    lidSwitch = "ignore";
+    settings.Login = {
+      HandlePowerKey = "ignore";
+      IdleAction = "ignore";
+    };
+  };
+
   # Printing
   services.printing.enable = true;
 

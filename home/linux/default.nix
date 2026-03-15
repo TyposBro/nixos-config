@@ -16,6 +16,17 @@
 
   programs.home-manager.enable = true;
 
+  # Prevent screen blanking and auto-suspend
+  dconf.settings = {
+    "org/gnome/desktop/session" = {
+      idle-delay = 0;  # never blank screen
+    };
+    "org/gnome/settings-daemon/plugins/power" = {
+      sleep-inactive-ac-type = "nothing";
+      sleep-inactive-battery-type = "nothing";
+    };
+  };
+
   home.packages = with pkgs; [
     # Browser (Linux-focused flake)
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
