@@ -1,5 +1,5 @@
 {
-  description = "typosbro's NixOS + macOS configuration";
+  description = "typosbro's NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -16,15 +16,9 @@
     };
 
     claude-code-nix.url = "github:sadjow/claude-code-nix";
-
-    # macOS support
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, zen-browser, claude-code-nix, nix-darwin }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, zen-browser, claude-code-nix }:
     let
       mkUnstable = system: import nixpkgs-unstable {
         inherit system;
@@ -49,28 +43,6 @@
                 inherit zen-browser;
               };
               users.typosbro = import ./home/linux;
-            };
-          }
-        ];
-      };
-
-      # ── macOS (nix-darwin) ──────────────────────────────────────────────────
-      # Change system to "x86_64-darwin" if on Intel Mac
-      darwinConfigurations.macbook = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        modules = [
-          ./hosts/macbook/configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            nixpkgs.overlays = [ claude-code-nix.overlays.default ];
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {
-                pkgs-unstable = mkUnstable "aarch64-darwin";
-              };
-              users.typosbro = import ./home/darwin;
             };
           }
         ];

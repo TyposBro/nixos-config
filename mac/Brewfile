@@ -1,6 +1,17 @@
 # macOS packages — install with: brew bundle --file=mac/Brewfile
 
+# ── Taps ──────────────────────────────────────────────────────────────────────
+tap "homebrew/cask-fonts"
+
 # ── Formulae (CLI tools) ──────────────────────────────────────────────────────
+
+# Shell & core
+brew "fish"
+brew "git"
+brew "gh"
+brew "glab"
+brew "wget"
+brew "fnm"
 
 # Dev tools
 brew "deno"
@@ -40,6 +51,11 @@ brew "tmux"
 
 # ── Casks (GUI apps) ──────────────────────────────────────────────────────────
 
+# Fonts
+cask "font-jetbrains-mono-nerd-font"
+cask "font-noto-sans"
+cask "font-noto-color-emoji"
+
 # Browsers
 cask "brave-browser"
 cask "zen"
@@ -57,8 +73,7 @@ cask "github"
 
 # AI
 cask "claude"
-# Claude Code CLI — install via npm after setting up node with fnm:
-#   fnm install --lts && npm install -g @anthropic-ai/claude-code
+# Claude Code CLI — run after: fnm install --lts && npm install -g @anthropic-ai/claude-code
 
 # Cloud
 cask "google-cloud-sdk"
@@ -82,8 +97,8 @@ cask "protonvpn"
 cask "windscribe"
 
 # Apps
-cask "bitwarden"
 cask "au-lab"
+cask "bitwarden"
 cask "obsidian"
 cask "postman"
 cask "qbittorrent"
