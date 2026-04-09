@@ -1,8 +1,5 @@
-{ pkgs, pkgs-unstable, lib, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
-let
-  isDarwin = pkgs.stdenv.isDarwin;
-in
 {
   home.packages = with pkgs; [
     # Editor (vscode managed by programs.vscode in vscode.nix)
@@ -50,15 +47,10 @@ in
     unzip
     jq
 
-    # GUI (cross-platform)
+    # GUI
     postman
     obsidian
     qbittorrent
-  ] ++ lib.optionals isDarwin [
-    # macOS-only
-    cocoapods
-  ] ++ lib.optionals (!isDarwin) [
-    # Unavailable on macOS in nixpkgs
     ghostty
     discord
     bitwarden-desktop

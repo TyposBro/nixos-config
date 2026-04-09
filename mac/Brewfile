@@ -1,0 +1,89 @@
+# macOS packages — install with: brew bundle --file=mac/Brewfile
+
+# ── Formulae (CLI tools) ──────────────────────────────────────────────────────
+
+# Dev tools
+brew "deno"
+brew "gradle"
+brew "python"
+brew "ruby"
+brew "git-lfs"
+brew "git-filter-repo"
+brew "cocoapods"
+
+# Rust — after install, run: rustup default stable && rustup component add clippy rust-analyzer
+brew "rustup"
+
+# React Native
+brew "bun"
+brew "watchman"
+
+# Cloud
+brew "awscli"
+brew "cloudflared"
+
+# Media
+brew "mpv"
+brew "tesseract"
+
+# CLI utilities
+brew "aria2"
+brew "btop"
+brew "cloc"
+brew "fzf"
+brew "htop"
+brew "jq"
+brew "lazygit"
+brew "rename"
+brew "tectonic"
+brew "tmux"
+
+# ── Casks (GUI apps) ──────────────────────────────────────────────────────────
+
+# Browsers
+cask "brave-browser"
+cask "zen"
+
+# Chat & social
+cask "discord"
+cask "spotify"
+cask "telegram"
+
+# Dev tools
+cask "android-studio"
+cask "android-platform-tools"
+cask "docker"
+cask "github"
+
+# AI
+cask "claude"
+# Claude Code CLI — install via npm after setting up node with fnm:
+#   fnm install --lts && npm install -g @anthropic-ai/claude-code
+
+# Cloud
+cask "google-cloud-sdk"
+
+# Productivity
+cask "alt-tab"
+cask "ghostty"
+cask "karabiner-elements"
+cask "raycast"
+
+# Media
+cask "eqmac"
+cask "iina"
+cask "kdenlive"
+cask "lastfm"
+cask "obs"
+
+# VPN & networking
+cask "ngrok"
+cask "protonvpn"
+cask "windscribe"
+
+# Apps
+cask "bitwarden"
+cask "au-lab"
+cask "obsidian"
+cask "postman"
+cask "qbittorrent"
