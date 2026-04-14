@@ -16,14 +16,19 @@
 
   programs.home-manager.enable = true;
 
-  # Prevent screen blanking and auto-suspend
+  # Prevent screen blanking, lock, sleep, and hibernate
   dconf.settings = {
     "org/gnome/desktop/session" = {
       idle-delay = 0;  # never blank screen
     };
+    "org/gnome/desktop/screensaver" = {
+      lock-enabled = false;
+      idle-activation-enabled = false;
+    };
     "org/gnome/settings-daemon/plugins/power" = {
       sleep-inactive-ac-type = "nothing";
       sleep-inactive-battery-type = "nothing";
+      ambient-enabled = false;  # disable auto-brightness dimming
     };
   };
 

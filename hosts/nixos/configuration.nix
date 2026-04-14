@@ -75,6 +75,16 @@
 
   # Docker with NVIDIA GPU support
   virtualisation.docker.enable = true;
+  virtualisation.docker.daemon.settings = {
+    runtimes.nvidia = {
+      path = "${pkgs.nvidia-container-toolkit.tools}/bin/nvidia-container-runtime";
+    };
+  };
+
+  # nvidia-container-runtime expects nvidia-ctk at /usr/bin/nvidia-ctk
+  systemd.tmpfiles.rules = [
+    "L+ /usr/bin/nvidia-ctk - - - - ${pkgs.nvidia-container-toolkit}/bin/nvidia-ctk"
+  ];
   hardware.nvidia-container-toolkit.enable = true;
 
   # Steam (needs system-level 32-bit support and udev rules)
@@ -104,6 +114,12 @@
       IdleAction = "ignore";
     };
   };
+
+  # Mask all sleep/hibernate targets — nothing can suspend this machine
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
 
   # Printing
   services.printing.enable = true;

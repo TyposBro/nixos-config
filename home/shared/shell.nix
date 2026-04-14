@@ -6,8 +6,12 @@
     enable = true;
     interactiveShellInit = ''
       fnm env --use-on-cd --shell fish | source
-      # JAVA_HOME — use JetBrains JDK bundled with Android Studio
-      set -gx JAVA_HOME (/usr/libexec/java_home -v 17 2>/dev/null)
+      # JAVA_HOME — macOS: system Java, Linux: Android Studio bundled JDK
+      if test -x /usr/libexec/java_home
+        set -gx JAVA_HOME (/usr/libexec/java_home -v 17 2>/dev/null)
+      else if test -d ~/.local/share/JetBrains/Toolbox/apps/android-studio/jbr
+        set -gx JAVA_HOME ~/.local/share/JetBrains/Toolbox/apps/android-studio/jbr
+      end
       # GitHub token for Nix flake fetches (avoids API rate limits)
       if command -q gh
         set -gx NIX_CONFIG "access-tokens = github.com=$(gh auth token 2>/dev/null)"
