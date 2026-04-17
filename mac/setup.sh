@@ -2,40 +2,70 @@
 set -e
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+MARK_DIR="$HOME/.local/state/nixos-config-mac"
+mkdir -p "$MARK_DIR"
 
-echo "==> Installing packages..."
+if [ "$1" = "--clean" ] || [ "$1" = "-c" ]; then
+  echo "==> Clean install — clearing markers..."
+  rm -f "$MARK_DIR"/*
+fi
+
+did() { [ -f "$MARK_DIR/$1" ]; }
+mark() { touch "$MARK_DIR/$1"; }
+
+echo "==> Installing packages (brew bundle)..."
 brew bundle --file="$DIR/Brewfile"
 
-echo "==> Applying macOS defaults..."
-bash "$DIR/defaults.sh"
-
-echo "==> Linking shell + terminal configs..."
-mkdir -p ~/.config/fish ~/.config/ghostty
-ln -sfn "$DIR/config/fish/config.fish" ~/.config/fish/config.fish
-ln -sfn "$DIR/config/ghostty/config" ~/.config/ghostty/config
-ln -sfn "$DIR/config/starship.toml" ~/.config/starship.toml
-
-echo "==> Installing Catppuccin Mocha fish theme..."
-mkdir -p ~/.config/fish/themes
-curl -fsSL https://raw.githubusercontent.com/catppuccin/fish/main/themes/catppuccin-mocha.theme \
-  -o "$HOME/.config/fish/themes/catppuccin-mocha.theme"
-fish -c 'fish_config theme save "Catppuccin Mocha"' || true
-
-echo "==> Setting up Rust toolchain..."
-rustup default stable
-rustup component add clippy rust-analyzer
-
-echo "==> Installing Claude Code..."
-curl -fsSL https://claude.ai/install.sh | bash
-
-echo "==> Installing caveman skill..."
-npx -y skills add JuliusBrussee/caveman
-
-echo "==> Setting fish as default shell..."
-FISH_PATH="$(command -v fish)"
-if ! grep -qx "$FISH_PATH" /etc/shells; then
-  echo "$FISH_PATH" | sudo tee -a /etc/shells
+if ! did configs; then
+  echo "==> Linking shell + terminal configs..."
+  mkdir -p ~/.config/fish ~/.config/ghostty ~/.config/fish/themes
+  ln -sfn "$DIR/config/fish/config.fish" ~/.config/fish/config.fish
+  ln -sfn "$DIR/config/ghostty/config" ~/.config/ghostty/config
+  ln -sfn "$DIR/config/starship.toml" ~/.config/starship.toml
+  mark configs
 fi
-chsh -s "$FISH_PATH"
 
-echo "==> Done! Open a new terminal."
+if ! did fish-theme; then
+  echo "==> Installing Catppuccin Mocha fish theme..."
+  curl -fsSL https://raw.githubusercontent.com/catppuccin/fish/main/themes/catppuccin-mocha.theme \
+    -o "$HOME/.config/fish/themes/Catppuccin Mocha.theme"
+  fish -c 'yes | fish_config theme save "Catppuccin Mocha"' >/dev/null 2>&1 || true
+  mark fish-theme
+fi
+
+if ! did defaults; then
+  echo "==> Applying macOS defaults..."
+  bash "$DIR/defaults.sh"
+  mark defaults
+fi
+
+if ! did rust; then
+  echo "==> Setting up Rust toolchain..."
+  rustup default stable
+  rustup component add clippy rust-analyzer
+  mark rust
+fi
+
+if ! did claude-code; then
+  echo "==> Installing Claude Code..."
+  curl -fsSL https://claude.ai/install.sh | bash
+  mark claude-code
+fi
+
+if ! did caveman; then
+  echo "==> Installing caveman skill (interactive — pick skills)..."
+  npx -y skills add JuliusBrussee/caveman || true
+  mark caveman
+fi
+
+FISH_PATH="$(command -v fish)"
+if [ "$(dscl . -read "/Users/$(whoami)" UserShell | awk '{print $2}')" != "$FISH_PATH" ]; then
+  echo "==> Setting fish as default shell..."
+  if ! grep -qx "$FISH_PATH" /etc/shells; then
+    echo "$FISH_PATH" | sudo tee -a /etc/shells >/dev/null
+  fi
+  chsh -s "$FISH_PATH"
+fi
+
+echo "==> Done. Re-run anytime; already-done steps are skipped."
+echo "    Force re-run: rm $MARK_DIR/<step>"

@@ -12,36 +12,52 @@ home/
 hosts/
   nixos/     # NixOS system config (GDM + GNOME)
 mac/
-  Brewfile   # all macOS packages and apps
-  setup.sh   # one-command macOS setup
+  Brewfile    # all macOS packages and apps
+  setup.sh    # idempotent setup — safe to re-run
   defaults.sh # macOS system settings (dock, finder, key repeat)
+  config/     # fish, ghostty, starship dotfiles
 ```
 
 ## macOS
 
-### Fresh setup
+### Fresh install
 
 ```bash
 git clone https://github.com/TyposBro/nixos-config.git ~/nixos-config
-bash ~/nixos-config/mac/setup.sh
+~/nixos-config/mac/setup.sh --clean
 ```
 
-Then finish Node + Claude Code:
+Runs every step: brew bundle, symlink configs, fish theme, macOS defaults, Rust toolchain, Claude Code, caveman skill, fish as default shell.
+
+### Update / add a package
+
+Edit `mac/Brewfile`, then:
 
 ```bash
-fnm install --lts
-npm install -g @anthropic-ai/claude-code
+~/nixos-config/mac/setup.sh
 ```
 
-`setup.sh` installs all brew packages, applies macOS system defaults, and sets up the Rust toolchain.
+Skips already-done steps. Only `brew bundle` runs — picks up new packages.
+
+### Force re-run one step
+
+```bash
+rm ~/.local/state/nixos-config-mac/<step>
+~/nixos-config/mac/setup.sh
+```
+
+Step names: `configs`, `fish-theme`, `defaults`, `rust`, `claude-code`, `caveman`.
 
 ### What's managed
 
 | Thing | How |
 |---|---|
 | Packages & apps | `mac/Brewfile` (`brew bundle`) |
+| Dotfiles (fish, ghostty, starship) | `mac/config/` (symlinked to `~/.config/`) |
 | macOS defaults | `mac/defaults.sh` (`defaults write`) |
 | Rust toolchain | `rustup` |
+| Claude Code CLI | `claude.ai/install.sh` |
+| Caveman skill | `npx skills add` |
 
 ## Linux (NixOS)
 
