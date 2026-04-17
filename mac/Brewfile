@@ -73,6 +73,8 @@ cask "visual-studio-code"
 # AI
 cask "claude"
 cask "codex"
+cask "antigravity"
+cask "t3-code"
 # Claude Code CLI — installed by setup.sh via: curl -fsSL https://claude.ai/install.sh | bash
 
 # Cloud
