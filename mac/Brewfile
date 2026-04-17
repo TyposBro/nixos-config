@@ -1,12 +1,10 @@
 # macOS packages — install with: brew bundle --file=mac/Brewfile
 
-# ── Taps ──────────────────────────────────────────────────────────────────────
-tap "homebrew/cask-fonts"
-
 # ── Formulae (CLI tools) ──────────────────────────────────────────────────────
 
 # Shell & core
 brew "fish"
+brew "starship"
 brew "git"
 brew "gh"
 brew "glab"
@@ -26,7 +24,7 @@ brew "cocoapods"
 brew "rustup"
 
 # React Native
-brew "bun"
+# bun — install via: curl -fsSL https://bun.sh/install | bash
 brew "watchman"
 
 # Cloud
@@ -68,15 +66,17 @@ cask "telegram"
 # Dev tools
 cask "android-studio"
 cask "android-platform-tools"
-cask "docker"
+cask "docker-desktop"
 cask "github"
+cask "visual-studio-code"
 
 # AI
 cask "claude"
-# Claude Code CLI — run after: fnm install --lts && npm install -g @anthropic-ai/claude-code
+cask "codex"
+# Claude Code CLI — installed by setup.sh via: curl -fsSL https://claude.ai/install.sh | bash
 
 # Cloud
-cask "google-cloud-sdk"
+cask "gcloud-cli"
 
 # Productivity
 cask "alt-tab"
