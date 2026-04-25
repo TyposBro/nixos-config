@@ -1,0 +1,52 @@
+if status is-interactive
+    set -U fish_greeting ""
+
+    # PATH additions (must come before tools that depend on them)
+    fish_add_path $HOME/.local/bin
+    fish_add_path $HOME/.local/share/fnm
+    fish_add_path $HOME/.bun/bin
+    fish_add_path $HOME/.opencode/bin
+    fish_add_path $HOME/.cargo/bin
+    fish_add_path $HOME/.deno/bin
+
+    # Tools
+    if command -q starship
+        starship init fish | source
+    end
+    if command -q fnm
+        fnm env --use-on-cd --shell fish | source
+    end
+
+    # Env
+    set -gx BUN_INSTALL $HOME/.bun
+    set -gx ANDROID_HOME $HOME/Android/Sdk
+    if test -d /snap/android-studio/current/android-studio/jbr
+        set -gx JAVA_HOME /snap/android-studio/current/android-studio/jbr
+    end
+
+    # GitHub token for any tooling that wants it
+    if command -q gh
+        set -gx GH_TOKEN (gh auth token 2>/dev/null)
+    end
+
+    # Aliases
+    alias ll "ls -la"
+    alias la "ls -la"
+    alias gs "git status"
+    alias ga "git add"
+    alias gc "git commit"
+    alias gca "git commit --amend"
+    alias gp "git push"
+    alias gpl "git pull"
+    alias gd "git diff"
+    alias gl "git log --oneline --graph --decorate"
+    alias ncd "cd ~/nixos-config"
+    alias exs "npx expo start"
+    alias exc "npx expo start --clear"
+    alias expa "npx expo run:android"
+    alias expi "npx expo run:ios"
+
+    # Kubuntu helpers
+    alias upd "sudo apt update && sudo apt upgrade"
+    alias kreboot "systemctl reboot"
+end
