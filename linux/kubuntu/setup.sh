@@ -6,7 +6,14 @@ set -e
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$DIR/../.." && pwd)"
-MARK_DIR="$HOME/.local/state/nixos-config-kubuntu"
+MARK_DIR="$HOME/.local/state/config-kubuntu"
+OLD_MARK_DIR="$HOME/.local/state/nixos-config-kubuntu"
+
+if [ -d "$OLD_MARK_DIR" ] && [ ! -d "$MARK_DIR" ]; then
+  mkdir -p "$(dirname "$MARK_DIR")"
+  mv "$OLD_MARK_DIR" "$MARK_DIR"
+fi
+
 mkdir -p "$MARK_DIR"
 
 if [ "$1" = "--clean" ] || [ "$1" = "-c" ]; then
@@ -38,7 +45,7 @@ if ! did apt; then
     python3 python3-pip python3-venv ruby gradle \
     neovim \
     fonts-noto-core fonts-noto-color-emoji fonts-font-awesome \
-    pavucontrol easyeffects playerctl pamixer brightnessctl wl-clipboard \
+    pulseaudio pulseaudio-utils pavucontrol playerctl pamixer brightnessctl wl-clipboard \
     flatpak \
     git-lfs git-filter-repo
   # fd-find ships as `fdfind` on Ubuntu — symlink to `fd`
@@ -47,11 +54,62 @@ if ! did apt; then
   mark apt
 fi
 
+# ── 1b. Swap: ensure 16G swapfile ───────────────────────────────────────────
+if ! did swap-16g; then
+  echo "==> Ensuring 16G swapfile at /swapfile..."
+  TARGET_BYTES="$((16 * 1024 * 1024 * 1024))"
+
+  if [ -f /swapfile ]; then
+    CUR_BYTES="$(sudo stat -c%s /swapfile 2>/dev/null || echo 0)"
+    if [ "$CUR_BYTES" != "$TARGET_BYTES" ]; then
+      sudo swapoff /swapfile 2>/dev/null || true
+      sudo rm -f /swapfile
+    fi
+  fi
+
+  if [ ! -f /swapfile ]; then
+    sudo fallocate -l 16G /swapfile
+    sudo chmod 600 /swapfile
+    sudo mkswap /swapfile >/dev/null
+  fi
+
+  sudo swapon /swapfile
+  if ! sudo grep -qE '^/swapfile\s+none\s+swap\s+' /etc/fstab; then
+    echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
+  fi
+
+  mark swap-16g
+fi
+
+# ── 1c. NVIDIA: force dedicated dGPU mode ───────────────────────────────────
+if ! did nvidia-dgpu; then
+  echo "==> Enabling dedicated NVIDIA GPU mode..."
+  sudo apt install -y nvidia-prime
+
+  if command -v prime-select >/dev/null 2>&1; then
+    CURRENT_MODE="$(prime-select query 2>/dev/null || true)"
+    if [ "$CURRENT_MODE" != "nvidia" ]; then
+      sudo prime-select nvidia
+    fi
+  else
+    echo "    prime-select not found; skipping dedicated GPU switch"
+  fi
+
+  mark nvidia-dgpu
+fi
+
 # ── 2. Flatpak: add Flathub ──────────────────────────────────────────────────
 if ! did flathub; then
   echo "==> Adding Flathub remote..."
   flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
   mark flathub
+fi
+
+# ── 2b. Perfect Equalizer (EasyEffects, GitHub project via Flathub) ─────────
+if ! did perfect-eq; then
+  echo "==> Installing Perfect Equalizer (EasyEffects)..."
+  flatpak install -y --user flathub com.github.wwmm.easyeffects
+  mark perfect-eq
 fi
 
 # ── 3. Ghostty (community .deb from mkasberg/ghostty-ubuntu) ─────────────────
@@ -183,7 +241,32 @@ if ! did gcloud; then
   mark gcloud
 fi
 
-# ── 16. VS Code ──────────────────────────────────────────────────────────────
+# ── 16. Terraform + OpenTofu ─────────────────────────────────────────────────
+if ! did terraform-tools; then
+  echo "==> Installing Terraform + OpenTofu..."
+  sudo rm -f /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  curl -fsSL https://apt.releases.hashicorp.com/gpg | \
+    sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  echo "deb [arch=$ARCH signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $CODENAME main" | \
+    sudo tee /etc/apt/sources.list.d/hashicorp.list >/dev/null
+
+  sudo install -m 0755 -d /etc/apt/keyrings
+  sudo rm -f /etc/apt/keyrings/opentofu.gpg /etc/apt/keyrings/opentofu-repo.gpg
+  curl -fsSL https://get.opentofu.org/opentofu.gpg | \
+    sudo tee /etc/apt/keyrings/opentofu.gpg >/dev/null
+  curl -fsSL https://packages.opentofu.org/opentofu/tofu/gpgkey | \
+    sudo gpg --no-tty --batch --dearmor -o /etc/apt/keyrings/opentofu-repo.gpg >/dev/null
+  sudo chmod a+r /etc/apt/keyrings/opentofu.gpg /etc/apt/keyrings/opentofu-repo.gpg
+  echo "deb [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main" | \
+    sudo tee /etc/apt/sources.list.d/opentofu.list >/dev/null
+  sudo chmod a+r /etc/apt/sources.list.d/opentofu.list
+
+  sudo apt update
+  sudo apt install -y terraform tofu
+  mark terraform-tools
+fi
+
+# ── 17. VS Code ──────────────────────────────────────────────────────────────
 if ! did vscode; then
   echo "==> Installing VS Code..."
   curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | \
@@ -194,7 +277,7 @@ if ! did vscode; then
   mark vscode
 fi
 
-# ── 17. Brave Browser ────────────────────────────────────────────────────────
+# ── 18. Brave Browser ────────────────────────────────────────────────────────
 if ! did brave; then
   echo "==> Installing Brave..."
   sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
@@ -205,7 +288,7 @@ if ! did brave; then
   mark brave
 fi
 
-# ── 18. Docker (docker-ce + compose plugin) ──────────────────────────────────
+# ── 19. Docker (docker-ce + compose plugin) ──────────────────────────────────
 if ! did docker; then
   echo "==> Installing Docker..."
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
@@ -218,7 +301,7 @@ if ! did docker; then
   mark docker
 fi
 
-# ── 19. ProtonVPN ────────────────────────────────────────────────────────────
+# ── 20. ProtonVPN ────────────────────────────────────────────────────────────
 if ! did protonvpn; then
   echo "==> Installing ProtonVPN..."
   curl -fsSL -o /tmp/proton-release.deb \
@@ -230,7 +313,7 @@ if ! did protonvpn; then
   mark protonvpn
 fi
 
-# ── 20. Snap apps (Kubuntu has snap by default) ──────────────────────────────
+# ── 21. Snap apps (Kubuntu has snap by default) ──────────────────────────────
 if ! did snap-apps; then
   echo "==> Installing snap apps..."
   sudo snap install spotify || true
@@ -243,21 +326,28 @@ if ! did snap-apps; then
   mark snap-apps
 fi
 
-# ── 21. Bitwarden Desktop (Flatpak) ──────────────────────────────────────────
+# ── 22. Bitwarden Desktop (Flatpak) ──────────────────────────────────────────
 if ! did bitwarden; then
   echo "==> Installing Bitwarden..."
   flatpak install -y --user flathub com.bitwarden.desktop
   mark bitwarden
 fi
 
-# ── 22. Claude Code CLI ──────────────────────────────────────────────────────
+# ── 23. Claude Code CLI ──────────────────────────────────────────────────────
 if ! did claude-code; then
   echo "==> Installing Claude Code..."
   curl -fsSL https://claude.ai/install.sh | bash
   mark claude-code
 fi
 
-# ── 23. Codex CLI (npm @openai/codex) — needs node from fnm ──────────────────
+# ── 24. OpenCode CLI ─────────────────────────────────────────────────────────
+if ! did opencode; then
+  echo "==> Installing OpenCode..."
+  curl -fsSL https://opencode.ai/install | bash
+  mark opencode
+fi
+
+# ── 25. Codex CLI (npm @openai/codex) — needs node from fnm ──────────────────
 if ! did codex; then
   echo "==> Installing Codex CLI..."
   # Find fnm — it installs to ~/.local/share/fnm or ~/.fnm depending on version
@@ -276,7 +366,7 @@ if ! did codex; then
   fi
 fi
 
-# ── 24. Tectonic (LaTeX) — prebuilt static binary ────────────────────────────
+# ── 26. Tectonic (LaTeX) — prebuilt static binary ────────────────────────────
 if ! did tectonic; then
   echo "==> Installing tectonic (prebuilt static binary)..."
   TEC_TAG="$(curl -fsSL https://api.github.com/repos/tectonic-typesetting/tectonic/releases/latest | jq -r .tag_name)"
@@ -294,7 +384,7 @@ if ! did tectonic; then
   fi
 fi
 
-# ── 25. Symlink configs ──────────────────────────────────────────────────────
+# ── 27. Symlink configs ──────────────────────────────────────────────────────
 if ! did configs; then
   echo "==> Linking shell + terminal configs..."
   mkdir -p "$HOME/.config/fish/themes" "$HOME/.config/ghostty"
@@ -304,7 +394,7 @@ if ! did configs; then
   mark configs
 fi
 
-# ── 26. Git config (mirrors home/shared/git.nix) ─────────────────────────────
+# ── 28. Git config (mirrors home/shared/git.nix) ─────────────────────────────
 if ! did git-config; then
   echo "==> Applying git config..."
   git config --global user.name  "TyposBro"
@@ -318,7 +408,7 @@ if ! did git-config; then
   mark git-config
 fi
 
-# ── 27. Catppuccin Mocha fish theme ──────────────────────────────────────────
+# ── 29. Catppuccin Mocha fish theme ──────────────────────────────────────────
 if ! did fish-theme; then
   echo "==> Installing Catppuccin Mocha fish theme..."
   curl -fsSL https://raw.githubusercontent.com/catppuccin/fish/main/themes/catppuccin-mocha.theme \
@@ -327,7 +417,7 @@ if ! did fish-theme; then
   mark fish-theme
 fi
 
-# ── 28. Set fish as default shell ────────────────────────────────────────────
+# ── 30. Set fish as default shell ────────────────────────────────────────────
 FISH_PATH="$(command -v fish)"
 if [ -n "$FISH_PATH" ] && [ "$(getent passwd "$USER" | cut -d: -f7)" != "$FISH_PATH" ]; then
   echo "==> Setting fish as default shell..."
@@ -337,7 +427,7 @@ if [ -n "$FISH_PATH" ] && [ "$(getent passwd "$USER" | cut -d: -f7)" != "$FISH_P
   sudo chsh -s "$FISH_PATH" "$USER"
 fi
 
-# ── 29. SSH key + config (mirrors home/shared/git.nix) ───────────────────────
+# ── 31. SSH key + config (mirrors home/shared/git.nix) ───────────────────────
 if ! did ssh-key; then
   echo "==> Setting up SSH key + config..."
   mkdir -p "$HOME/.ssh"
@@ -365,7 +455,7 @@ EOF
   mark ssh-key
 fi
 
-# ── 30. GitHub + GitLab SSH key upload (interactive) ─────────────────────────
+# ── 32. GitHub + GitLab SSH key upload (interactive) ─────────────────────────
 if ! did gh-ssh; then
   echo "==> GitHub auth + SSH key upload (browser will open)..."
   if ! gh auth status >/dev/null 2>&1; then
@@ -389,7 +479,7 @@ if ! did glab-ssh; then
   mark glab-ssh
 fi
 
-# ── 31. KDE: set Ghostty as default terminal ─────────────────────────────────
+# ── 33. KDE: set Ghostty as default terminal ─────────────────────────────────
 if ! did kde-terminal; then
   echo "==> Setting Ghostty as KDE default terminal..."
   KFILE="$HOME/.config/kdeglobals"

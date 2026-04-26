@@ -29,7 +29,7 @@ if status is-interactive
     alias gpl "git pull"
     alias gd "git diff"
     alias gl "git log --oneline --graph --decorate"
-    alias ncd "cd ~/nixos-config"
+    alias ncd "cd ~/config"
     alias exs "npx expo start"
     alias exc "npx expo start --clear"
     alias expa "npx expo run:android"

@@ -47,6 +47,7 @@
   hardware.nvidia = {
     modesetting.enable = true;         # Required for Wayland
     powerManagement.enable = true;     # Better suspend/resume
+    powerManagement.finegrained = false; # Keep dGPU active (no runtime power-off)
     open = false;                      # Proprietary (more stable than open module)
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -54,6 +55,8 @@
 
   # PRIME Sync — NVIDIA always active (RTX 4060 Max-Q), Intel handles display
   hardware.nvidia.prime = {
+    offload.enable = false;
+    offload.enableOffloadCmd = false;
     sync.enable = true;
     intelBusId  = "PCI:0:2:0";
     nvidiaBusId = "PCI:1:0:0";

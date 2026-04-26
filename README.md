@@ -23,8 +23,8 @@ mac/
 ### Fresh install
 
 ```bash
-git clone https://github.com/TyposBro/nixos-config.git ~/nixos-config
-~/nixos-config/mac/setup.sh --clean
+git clone https://github.com/TyposBro/config.git ~/config
+~/config/mac/setup.sh --clean
 ```
 
 Runs every step: brew bundle, symlink configs, fish theme, macOS defaults, Rust toolchain, Claude Code, caveman skill, fish as default shell.
@@ -34,7 +34,7 @@ Runs every step: brew bundle, symlink configs, fish theme, macOS defaults, Rust 
 Edit `mac/Brewfile`, then:
 
 ```bash
-~/nixos-config/mac/setup.sh
+~/config/mac/setup.sh
 ```
 
 Skips already-done steps. Only `brew bundle` runs — picks up new packages.
@@ -42,8 +42,8 @@ Skips already-done steps. Only `brew bundle` runs — picks up new packages.
 ### Force re-run one step
 
 ```bash
-rm ~/.local/state/nixos-config-mac/<step>
-~/nixos-config/mac/setup.sh
+rm ~/.local/state/config-mac/<step>
+~/config/mac/setup.sh
 ```
 
 Step names: `configs`, `fish-theme`, `defaults`, `rust`, `claude-code`, `caveman`.
@@ -66,14 +66,14 @@ Step names: `configs`, `fish-theme`, `defaults`, `rust`, `claude-code`, `caveman
 ```bash
 # 1. Clone the repo
 nix --extra-experimental-features "nix-command flakes" \
-  run nixpkgs#git -- clone https://github.com/TyposBro/nixos-config.git ~/nixos-config
+  run nixpkgs#git -- clone https://github.com/TyposBro/config.git ~/config
 
 # 2. Regenerate hardware config for this machine
 sudo nixos-generate-config --show-hardware-config \
-  > ~/nixos-config/hosts/nixos/hardware-configuration.nix
+  > ~/config/hosts/nixos/hardware-configuration.nix
 
 # 3. Apply
-sudo nixos-rebuild switch --flake ~/nixos-config#nixos
+sudo nixos-rebuild switch --flake ~/config#nixos
 ```
 
 > Always regenerate `hardware-configuration.nix` on new hardware — never copy it from another machine.
@@ -114,5 +114,5 @@ ngc  # delete old generations
 
 | Host | URL |
 |---|---|
-| GitHub | https://github.com/TyposBro/nixos-config |
-| GitLab | https://gitlab.com/typosbro/nixos-config |
+| GitHub | https://github.com/TyposBro/config |
+| GitLab | https://gitlab.com/typosbro/config |

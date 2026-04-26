@@ -3,8 +3,8 @@
 {
   # Linux-specific fish aliases
   programs.fish.shellAliases = {
-    nr  = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
-    nru = "cd ~/nixos-config && nix flake update && sudo nixos-rebuild switch --flake ~/nixos-config#nixos";
+    nr  = "sudo nixos-rebuild switch --flake ~/config#nixos";
+    nru = "cd ~/config && nix flake update && sudo nixos-rebuild switch --flake ~/config#nixos";
   };
 
   # Rofi — app launcher (Raycast equivalent for Linux)

@@ -2,7 +2,14 @@
 set -e
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MARK_DIR="$HOME/.local/state/nixos-config-mac"
+MARK_DIR="$HOME/.local/state/config-mac"
+OLD_MARK_DIR="$HOME/.local/state/nixos-config-mac"
+
+if [ -d "$OLD_MARK_DIR" ] && [ ! -d "$MARK_DIR" ]; then
+  mkdir -p "$(dirname "$MARK_DIR")"
+  mv "$OLD_MARK_DIR" "$MARK_DIR"
+fi
+
 mkdir -p "$MARK_DIR"
 
 if [ "$1" = "--clean" ] || [ "$1" = "-c" ]; then

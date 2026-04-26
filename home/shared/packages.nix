@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     # Editor (vscode managed by programs.vscode in vscode.nix)
     claude-code          # from overlay — always latest
+    pkgs-unstable.opencode
 
     # Dev tools
     nodejs
@@ -31,6 +32,8 @@
     awscli2
     cloudflared
     google-cloud-sdk
+    terraform
+    opentofu
 
     # CLI tools
     aria2

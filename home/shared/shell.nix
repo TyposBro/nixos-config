@@ -36,8 +36,8 @@
       ngc = "sudo nix-collect-garbage -d";
       nopt = "sudo nix-store --optimise";
 
-      # nixos-config dir
-      ncd = "cd ~/nixos-config";
+      # config repo dir
+      ncd = "cd ~/config";
 
       # React Native / Expo
       exs  = "npx expo start";

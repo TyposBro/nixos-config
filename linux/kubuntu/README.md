@@ -5,32 +5,33 @@ Mirror of `mac/setup.sh` for Kubuntu 24.04 (noble).
 ## Fresh install
 
 ```bash
-git clone https://github.com/TyposBro/nixos-config.git ~/nixos-config
-~/nixos-config/linux/kubuntu/setup.sh --clean
+git clone https://github.com/TyposBro/config.git ~/config
+~/config/linux/kubuntu/setup.sh --clean
 ```
 
-Runs every step: apt install, third-party repos, Ghostty, Zen Browser (Flatpak), fonts, starship, fnm, bun, rustup, deno, lazygit, glab, cloudflared, awscli, gcloud, VS Code, Brave, Docker, ProtonVPN, snap apps (Spotify/Discord/Postman/Obsidian/Android Studio/ngrok), Bitwarden (Flatpak), Claude Code, Codex CLI, tectonic, configs, git config, fish theme, SSH key + GitHub/GitLab key upload, fish as default shell, Ghostty as KDE default terminal.
+Runs every step: apt install (including PulseAudio), 16G swapfile setup, dedicated NVIDIA mode (prime-select nvidia), third-party repos, Perfect Equalizer (EasyEffects via Flatpak), Ghostty, Zen Browser (Flatpak), fonts, starship, fnm, bun, rustup, deno, lazygit, glab, cloudflared, awscli, gcloud, Terraform/OpenTofu, VS Code, Brave, Docker, ProtonVPN, snap apps (Spotify/Discord/Postman/Obsidian/Android Studio/ngrok), Bitwarden (Flatpak), Claude Code, OpenCode, Codex CLI, tectonic, configs, git config, fish theme, SSH key + GitHub/GitLab key upload, fish as default shell, Ghostty as KDE default terminal.
 
 ## Update / re-run
 
 ```bash
-~/nixos-config/linux/kubuntu/setup.sh
+~/config/linux/kubuntu/setup.sh
 ```
 
-Skips already-done steps. Markers live in `~/.local/state/nixos-config-kubuntu/`.
+Skips already-done steps. Markers live in `~/.local/state/config-kubuntu/`.
 
 ## Force re-run one step
 
 ```bash
-rm ~/.local/state/nixos-config-kubuntu/<step>
-~/nixos-config/linux/kubuntu/setup.sh
+rm ~/.local/state/config-kubuntu/<step>
+~/config/linux/kubuntu/setup.sh
 ```
 
-Step names: `apt`, `flathub`, `ghostty`, `zen`, `fonts-nerd`, `starship`, `fnm`, `bun`, `rust`, `deno`, `lazygit`, `glab`, `cloudflared`, `awscli`, `gcloud`, `vscode`, `brave`, `docker`, `protonvpn`, `snap-apps`, `bitwarden`, `claude-code`, `codex`, `tectonic`, `configs`, `git-config`, `fish-theme`, `ssh-key`, `gh-ssh`, `glab-ssh`, `kde-terminal`.
+Step names: `apt`, `swap-16g`, `nvidia-dgpu`, `flathub`, `perfect-eq`, `ghostty`, `zen`, `fonts-nerd`, `starship`, `fnm`, `bun`, `rust`, `deno`, `lazygit`, `glab`, `cloudflared`, `awscli`, `gcloud`, `terraform-tools`, `vscode`, `brave`, `docker`, `protonvpn`, `snap-apps`, `bitwarden`, `claude-code`, `opencode`, `codex`, `tectonic`, `configs`, `git-config`, `fish-theme`, `ssh-key`, `gh-ssh`, `glab-ssh`, `kde-terminal`.
 
 ## After install
 
 Log out and back in for: docker group, default shell change.
+Reboot after first run if NVIDIA mode was switched to `nvidia`.
 
 ## What's skipped vs Mac/NixOS
 
