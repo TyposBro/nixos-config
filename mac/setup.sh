@@ -22,6 +22,7 @@ did() { [ -f "$MARK_DIR/$1" ]; }
 mark() { touch "$MARK_DIR/$1"; }
 
 echo "==> Installing packages (brew bundle)..."
+export HOMEBREW_CASK_OPTS="--no-quarantine"
 brew bundle --file="$DIR/Brewfile"
 
 if ! did configs; then
