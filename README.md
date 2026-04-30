@@ -16,6 +16,7 @@ mac/
   setup.sh    # idempotent setup — safe to re-run
   defaults.sh # macOS system settings (dock, finder, key repeat)
   config/     # fish, ghostty, starship dotfiles
+pi/           # pi coding-agent settings + skills (no auth/session secrets)
 ```
 
 ## macOS
@@ -27,7 +28,7 @@ git clone https://github.com/TyposBro/config.git ~/config
 ~/config/mac/setup.sh --clean
 ```
 
-Runs every step: brew bundle, symlink configs, fish theme, macOS defaults, Rust toolchain, Claude Code, caveman skill, fish as default shell.
+Runs every step: brew bundle, symlink configs, fish theme, macOS defaults, Rust toolchain, Claude Code, pi setup, fish as default shell.
 
 ### Update / add a package
 
@@ -46,18 +47,19 @@ rm ~/.local/state/config-mac/<step>
 ~/config/mac/setup.sh
 ```
 
-Step names: `configs`, `fish-theme`, `defaults`, `rust`, `claude-code`, `caveman`.
+Step names: `configs`, `fish-theme`, `defaults`, `rust`, `claude-code`, `pi`.
 
 ### What's managed
 
-| Thing | How |
-|---|---|
-| Packages & apps | `mac/Brewfile` (`brew bundle`) |
+| Thing                              | How                                       |
+| ---------------------------------- | ----------------------------------------- |
+| Packages & apps                    | `mac/Brewfile` (`brew bundle`)            |
 | Dotfiles (fish, ghostty, starship) | `mac/config/` (symlinked to `~/.config/`) |
-| macOS defaults | `mac/defaults.sh` (`defaults write`) |
-| Rust toolchain | `rustup` |
-| Claude Code CLI | `claude.ai/install.sh` |
-| Caveman skill | `npx skills add` |
+| macOS defaults                     | `mac/defaults.sh` (`defaults write`)      |
+| Rust toolchain                     | `rustup`                                  |
+| Claude Code CLI                    | `claude.ai/install.sh`                    |
+| Pi + skills                        | `pi/setup.sh`                             |
+| Infisical CLI                      | `mac/Brewfile`                            |
 
 ## Linux (NixOS)
 
@@ -86,21 +88,35 @@ nru  # flake update + rebuild
 ngc  # delete old generations
 ```
 
+### Managed CLIs
+
+Infisical CLI is installed by `home/shared/packages.nix` on NixOS and `linux/kubuntu/setup.sh` on Kubuntu.
+
+### Pi coding agent
+
+Pi setup is backed up/reproducible under `pi/`:
+
+```bash
+~/config/pi/setup.sh
+```
+
+Kubuntu + macOS setup scripts call this automatically. It manages non-secret settings + skills only; auth/session data stays local.
+
 ### Keybindings (GNOME, Caps Lock = Super)
 
-| Binding | Action |
-|---|---|
-| `Super + Space` | Rofi app launcher |
-| `Super + Return` | Terminal (Ghostty) |
-| `Super + Shift + Return` | Browser (Zen) |
-| `Super + e` | File Manager (Nautilus) |
-| `Super + q` | Close window |
-| `Super + f` | Fullscreen |
-| `Super + h / l` | Tile window left / right |
-| `Super + j / k` | Workspace down / up |
-| `Super + Shift + j / k` | Move window to workspace |
-| `Super + 1–9` | Switch to workspace |
-| `Super + Shift + 1–9` | Move window to workspace |
+| Binding                  | Action                   |
+| ------------------------ | ------------------------ |
+| `Super + Space`          | Rofi app launcher        |
+| `Super + Return`         | Terminal (Ghostty)       |
+| `Super + Shift + Return` | Browser (Zen)            |
+| `Super + e`              | File Manager (Nautilus)  |
+| `Super + q`              | Close window             |
+| `Super + f`              | Fullscreen               |
+| `Super + h / l`          | Tile window left / right |
+| `Super + j / k`          | Workspace down / up      |
+| `Super + Shift + j / k`  | Move window to workspace |
+| `Super + 1–9`            | Switch to workspace      |
+| `Super + Shift + 1–9`    | Move window to workspace |
 
 ### Neovim
 
@@ -112,7 +128,7 @@ ngc  # delete old generations
 
 ## Mirrors
 
-| Host | URL |
-|---|---|
+| Host   | URL                                |
+| ------ | ---------------------------------- |
 | GitHub | https://github.com/TyposBro/config |
 | GitLab | https://gitlab.com/typosbro/config |

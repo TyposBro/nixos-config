@@ -9,7 +9,7 @@ git clone https://github.com/TyposBro/config.git ~/config
 ~/config/linux/kubuntu/setup.sh --clean
 ```
 
-Runs every step: apt install (including PulseAudio), 16G swapfile setup, dedicated NVIDIA mode (prime-select nvidia), third-party repos, Perfect Equalizer (EasyEffects via Flatpak), Ghostty, Zen Browser (Flatpak), fonts, starship, fnm, bun, rustup, deno, lazygit, glab, cloudflared, awscli, gcloud, Terraform/OpenTofu, VS Code, Brave, Docker, ProtonVPN, snap apps (Spotify/Discord/Postman/Obsidian/Android Studio/ngrok), Bitwarden (Flatpak), Claude Code, OpenCode, Codex CLI, tectonic, configs, git config, fish theme, SSH key + GitHub/GitLab key upload, fish as default shell, Ghostty as KDE default terminal.
+Runs every step: apt install (including PulseAudio + OpenSSH server), SSH server enablement, AC-power always-on settings (no sleep/dim while plugged in), 16G swapfile setup, dedicated NVIDIA mode (prime-select nvidia), third-party repos, Perfect Equalizer (EasyEffects via Flatpak), Ghostty, Zen Browser (Flatpak), fonts, starship, fnm, bun, rustup, deno, lazygit, glab, cloudflared, awscli, gcloud, Terraform/OpenTofu, VS Code, Brave, Docker, ProtonVPN, snap apps (Spotify/Discord/Postman/Obsidian/Android Studio/ngrok), Bitwarden (Flatpak), Claude Code, OpenCode, Codex CLI, T3 Code (AppImage + `t3 code` shim), tectonic, configs, git config, fish theme, SSH key + GitHub/GitLab key upload, fish as default shell, Ghostty as KDE default terminal.
 
 ## Update / re-run
 
@@ -26,7 +26,7 @@ rm ~/.local/state/config-kubuntu/<step>
 ~/config/linux/kubuntu/setup.sh
 ```
 
-Step names: `apt`, `swap-16g`, `nvidia-dgpu`, `flathub`, `perfect-eq`, `ghostty`, `zen`, `fonts-nerd`, `starship`, `fnm`, `bun`, `rust`, `deno`, `lazygit`, `glab`, `cloudflared`, `awscli`, `gcloud`, `terraform-tools`, `vscode`, `brave`, `docker`, `protonvpn`, `snap-apps`, `bitwarden`, `claude-code`, `opencode`, `codex`, `tectonic`, `configs`, `git-config`, `fish-theme`, `ssh-key`, `gh-ssh`, `glab-ssh`, `kde-terminal`.
+Step names: `apt`, `ssh-server`, `power-ac-always-on`, `swap-16g`, `nvidia-dgpu`, `flathub`, `perfect-eq`, `ghostty`, `zen`, `fonts-nerd`, `starship`, `fnm`, `bun`, `rust`, `deno`, `lazygit`, `glab`, `cloudflared`, `awscli`, `gcloud`, `terraform-tools`, `vscode`, `brave`, `docker`, `protonvpn`, `snap-apps`, `bitwarden`, `claude-code`, `opencode`, `codex`, `t3-code`, `tectonic`, `configs`, `git-config`, `fish-theme`, `ssh-key`, `gh-ssh`, `glab-ssh`, `kde-terminal`.
 
 ## After install
 
@@ -35,6 +35,6 @@ Reboot after first run if NVIDIA mode was switched to `nvidia`.
 
 ## What's skipped vs Mac/NixOS
 
-macOS-only (skipped): karabiner-elements, raycast, alt-tab, iina, au-lab, eqmac, t3-code, github-desktop cask.
+macOS-only (skipped): karabiner-elements, raycast, alt-tab, iina, au-lab, eqmac, github-desktop cask.
 No Linux build (skipped): antigravity (Google).
 Use Linux equivalent: Konsole/Ghostty replaces iTerm; krunner/rofi replaces Raycast.

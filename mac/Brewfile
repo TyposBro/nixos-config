@@ -1,5 +1,7 @@
 # macOS packages — install with: brew bundle --file=mac/Brewfile
 
+tap "infisical/get-cli"
+
 # ── Formulae (CLI tools) ──────────────────────────────────────────────────────
 
 # Shell & core
@@ -30,6 +32,7 @@ brew "watchman"
 # Cloud
 brew "awscli"
 brew "cloudflared"
+brew "infisical"
 
 # Media
 brew "mpv"

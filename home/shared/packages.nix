@@ -32,6 +32,7 @@
     awscli2
     cloudflared
     google-cloud-sdk
+    pkgs-unstable.infisical
     terraform
     opentofu
 
