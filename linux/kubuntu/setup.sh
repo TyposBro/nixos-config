@@ -391,6 +391,13 @@ if ! did bitwarden; then
 	mark bitwarden
 fi
 
+# ── 22b. WhatsApp (Whatsie, Flatpak) ─────────────────────────────────────────
+if ! did whatsapp; then
+	echo "==> Installing WhatsApp (Whatsie)..."
+	flatpak install -y --user flathub com.ktechpit.whatsie
+	mark whatsapp
+fi
+
 # ── 23. Claude Code CLI ──────────────────────────────────────────────────────
 if ! did claude-code; then
 	echo "==> Installing Claude Code..."

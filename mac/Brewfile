@@ -65,6 +65,7 @@ cask "zen"
 cask "discord"
 cask "spotify"
 cask "telegram"
+cask "whatsapp"
 
 # Dev tools
 cask "android-studio"

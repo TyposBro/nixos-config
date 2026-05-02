@@ -1,0 +1,1 @@
+/home/typosbro/agent-memory/config/AGENT.md
